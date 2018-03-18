@@ -1,0 +1,3 @@
+/home/martin/X-Brain/Notes/Clang/OnlineJudge/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/martin/X-Brain/Notes/Clang/OnlineJudge/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/martin/X-Brain/Notes/Clang/OnlineJudge/cmake-build-debug/CMakeFiles/memory.dir

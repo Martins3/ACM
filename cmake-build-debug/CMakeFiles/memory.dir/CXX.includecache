@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/martin/X-Brain/Notes/Clang/OnlineJudge/uva/contest/12/UVa12661.cpp
+iostream
+-
+fstream
+-
+vector
+-
+cmath
+-
+stack
+-
+sstream
+-
+climits
+-
+forward_list
+-
+deque
+-
+set
+-
+queue
+-
+map
+-
+cstring
+-
+algorithm
+-
+iterator
+-
+string
+-
+
