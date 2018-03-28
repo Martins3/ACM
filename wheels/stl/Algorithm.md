@@ -77,5 +77,26 @@ vector<int> vect2(vect1.begin(), vect.end());
 1. 对于key 会实现默认的排序
 2. erase 删除　可以使用的指针，也可以使用　 key
 
-## MISC
-1. 当向 container 中间添加 对象的时候， 对应copy 函数被调用的 ？
+# iterator
+// map::begin/end
+```
+#include <iostream>
+#include <map>
+
+int main ()
+{
+  std::map<char,int> mymap;
+
+  mymap['b'] = 100;
+  mymap['a'] = 200;
+  mymap['c'] = 300;
+
+  // show content:
+  for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  return 0;
+}
+```
+
+##　使用find 而不是　strstr 
