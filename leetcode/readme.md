@@ -1,9 +1,5 @@
 # Only hard here !
 
-## todo
-
-367
-
 https://leetcode.com/problems/palindrome-pairs/description/
 ## solved
 KMP
@@ -57,5 +53,3 @@ When we see a mismatch
     let T[pos] ← cnd (only need when all word occurrences searched)
 ```
 
-1. 如果匹配错误，那么只有在当前串对于之前的串进一步向右移动才可以 ！
-why 

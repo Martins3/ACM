@@ -21,7 +21,7 @@
             std::queue<int> empty;
             std::swap( q, empty );
         }
-    2. 
+    2. swap 和 assign copy constructor 的关系是什么 ？ 
 
 4. pair
     1. There is no difference between using make_pair and explicitly calling the pair constructor with specified type arguments. std::make_pair is more convenient when the types are verbose because a template method has type deduction based on its given parameters.
@@ -100,3 +100,4 @@ int main ()
 ```
 
 ##　使用find 而不是　strstr 
+
