@@ -54,19 +54,27 @@ void Tabu::tabu_search(int K){
     cout << "initialization over" << endl;
 
     unsigned int iter = 0;
-    max_iter = 100 * 10000;
+    max_iter = 1000 * 10000;
     TabuMove tm;
 
     
-    while(conflict_num){
-        if(iter == 372){
-            cout << "impossible" << endl;
-        }
+    while(conflict_num != 0){
+        assert(conflict_num >=0);
         find_move(tm, iter);
         make_move(tm, iter);
         iter ++;
         if(iter > max_iter) break;
-        printf("iter : %u conflict num %d\n", iter, conflict_num);
+
+        if(iter % 1000 == 0)
+            printf("iter %u conflict %d\n", iter, conflict_num);
+    }
+    
+    if(conflict_num == 0){
+        freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/tabu/res.txt", "a", stdin);
+        printf("K is %d\n", K);
+        for(size_t i = 0; i < N; i++){
+            printf("%d ", solutions[i]);
+        }
     }
 }
 
@@ -129,7 +137,7 @@ void Tabu::make_move(TabuMove& tabu_move, unsigned int iter){
     // change the color
     solutions[u] = vj;
     // update current conflict nums
-    conflict_num = conflict_num + delta;
+    conflict_num = conflict_num + delta * 2;
     // update tabu tenure
     tabu_tenure[u][vi] = iter + conflict_num + (unsigned int)rand()%10;
     // update the Adjacent_Color_Table;

@@ -20,9 +20,9 @@ using namespace std;
 int main(){
     // 测试编译
     Tabu tabu(0);
-
+    
     // 测试 Tabu 算法
-    tabu.tabu_search(70);
+    tabu.tabu_search(50);
 
     return 0;
 }
