@@ -1,0 +1,223 @@
+tabu.cpp:23:55: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+        for(size_t i = 1; i <= N; i++) solutions[i] = rand() % K;
+                                                      ^~~~~~ ~
+tabu.cpp:26:22: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+            for(int v: config[i]){
+                     ^
+tabu.cpp:27:27: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                solutions[v] = i;
+                ~~~~~~~~~ ^
+tabu.cpp:35:34: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+            adjacent_color_table[x][solutions[y]] ++;
+            ~~~~~~~~~~~~~~~~~~~~ ^
+tabu.cpp:35:47: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+            adjacent_color_table[x][solutions[y]] ++;
+                                    ~~~~~~~~~ ^
+tabu.cpp:27:32: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]
+                solutions[v] = i;
+                             ~ ^
+tabu.cpp:32:22: warning: comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+    for(int x = 1; x <= N; x++){
+                   ~ ^  ~
+tabu.cpp:33:30: warning: variable 'i' is uninitialized when used within its own initialization [-Wuninitialized]
+        for(int i = nodeHead[i]; i != -1; i = graph[i].head){
+                ~            ^
+In file included from tabu.cpp:1:
+././tabu.h:70:11: warning: padding class 'Tabu' with 4 bytes to align 'nodeHead' [-Wpadded]
+    int * nodeHead;
+          ^
+././tabu.h:72:12: warning: padding class 'Tabu' with 4 bytes to align 'graph' [-Wpadded]
+    Edge * graph;
+           ^
+././tabu.h:83:25: warning: padding class 'Tabu' with 4 bytes to align 'populations' [-Wpadded]
+    std::vector<Person> populations; 
+                        ^
+././tabu.h:16:7: warning: padding size of 'Person' with 4 bytes to alignment boundary [-Wpadded]
+class Person{
+      ^
+tabu.cpp:46:28: warning: declaration shadows a field of 'Tabu' [-Wshadow]
+void Tabu::tabu_search(int K){
+                           ^
+././tabu.h:57:18: note: previous declaration is here
+    unsigned int K;
+                 ^
+tabu.cpp:47:15: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    this->K = K;
+            ~ ^
+tabu.cpp:55:23: warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+        find_move(tm, iter);
+        ~~~~~~~~~     ^~~~
+tabu.cpp:56:23: warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+        make_move(tm, iter);
+        ~~~~~~~~~     ^~~~
+tabu.cpp:63:12: error: out-of-line definition of 'tabu_search' does not match any declaration in 'Tabu'
+void Tabu::tabu_search(vector<set<int> > config){
+           ^~~~~~~~~~~
+././tabu.h:81:22: note: type of 1st parameter of member declaration does not match definition ('vector<set<unsigned int>>' vs 'vector<set<int>>')
+    void tabu_search(std::vector<std::set<unsigned int> > config);
+                     ^
+tabu.cpp:73:17: warning: comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+        if(iter > max_iter) break;
+           ~~~~ ^ ~~~~~~~~
+tabu.cpp:88:56: warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+                int delta = adjacent_color_table[i][k] - adjacent_color_table[i][solutions[i]];
+                    ~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tabu.cpp:92:54: warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+                        tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                         ~~~~~~~~    ^~~~~~~~~~~~
+tabu.cpp:95:58: warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+                        non_tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                             ~~~~~~~~    ^~~~~~~~~~~~
+tabu.cpp:90:25: warning: comparison of integers of different signs: 'int' and 'unsigned int' [-Wsign-compare]
+                if(iter < tabu_tenure[i][k]){
+                   ~~~~ ^ ~~~~~~~~~~~~~~~~~
+tabu.cpp:92:51: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                         ~~~~~~~~ ^
+tabu.cpp:92:68: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                         ~~~~~~~~                  ^
+tabu.cpp:95:55: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        non_tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                             ~~~~~~~~ ^
+tabu.cpp:95:72: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        non_tabu_best_move = TabuMove(i, solutions[i], k, delta);
+                                             ~~~~~~~~                  ^
+tabu.cpp:118:15: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+    solutions[u] = vj;
+    ~~~~~~~~~ ^
+tabu.cpp:118:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    solutions[u] = vj;
+                 ~ ^~
+tabu.cpp:122:17: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+    tabu_tenure[u][vi] = iter + conflict_num + rand()%10;
+    ~~~~~~~~~~~ ^
+tabu.cpp:122:20: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+    tabu_tenure[u][vi] = iter + conflict_num + rand()%10;
+    ~~~~~~~~~~~    ^~
+tabu.cpp:122:46: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    tabu_tenure[u][vi] = iter + conflict_num + rand()%10;
+                       ~ ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+tabu.cpp:126:30: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        adjacent_color_table[y][vi] --;
+        ~~~~~~~~~~~~~~~~~~~~ ^
+tabu.cpp:126:33: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        adjacent_color_table[y][vi] --;
+        ~~~~~~~~~~~~~~~~~~~~    ^~
+tabu.cpp:127:30: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        adjacent_color_table[y][vj] ++;
+        ~~~~~~~~~~~~~~~~~~~~ ^
+tabu.cpp:127:33: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        adjacent_color_table[y][vj] ++;
+        ~~~~~~~~~~~~~~~~~~~~    ^~
+tabu.cpp:136:14: warning: variable length arrays are a C99 feature [-Wvla-extension]
+    char line[max_len];
+             ^
+tabu.cpp:136:14: warning: variable length array used [-Wvla]
+tabu.cpp:138:21: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+        fgets(line, max_len, stdin);
+        ~~~~~       ^~~~~~~
+tabu.cpp:142:17: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+    fgets(line, max_len, stdin);
+    ~~~~~       ^~~~~~~
+tabu.cpp:150:21: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+        fgets(line, max_len, stdin);
+        ~~~~~       ^~~~~~~
+tabu.cpp:194:12: error: out-of-line definition of 'cross_over' does not match any declaration in 'Tabu'
+void Tabu::cross_over(vector<set<int> > config_one, vector<set<int> > config_two, 
+           ^~~~~~~~~~
+././tabu.h:80:21: note: type of 1st parameter of member declaration does not match definition ('vector<set<unsigned int>>' vs 'vector<set<int>>')
+    void cross_over(std::vector<std::set<unsigned int> > config_one, std::vector<std::set<unsigned int> > config_two, std::vector<std::set<int> > offspring);
+                    ^
+tabu.cpp:210:48: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                offspring.push_back(config_one[max_i]);
+                                    ~~~~~~~~~~ ^~~~~
+tabu.cpp:211:26: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+                for(int v:config_one[max_i]){
+                         ^
+tabu.cpp:211:38: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                for(int v:config_one[max_i]){
+                          ~~~~~~~~~~ ^~~~~
+tabu.cpp:212:37: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+                    for(set<int>& s : config_two){
+                                    ^
+tabu.cpp:216:28: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                config_one[max_i].clear();
+                ~~~~~~~~~~ ^~~~~
+tabu.cpp:227:48: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                offspring.push_back(config_two[max_i]);
+                                    ~~~~~~~~~~ ^~~~~
+tabu.cpp:228:26: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+                for(int v:config_one[max_i]){
+                         ^
+tabu.cpp:228:38: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                for(int v:config_one[max_i]){
+                          ~~~~~~~~~~ ^~~~~
+tabu.cpp:229:37: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+                    for(set<int>& s : config_one){
+                                    ^
+tabu.cpp:233:28: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+                config_two[max_i].clear();
+                ~~~~~~~~~~ ^~~~~
+tabu.cpp:205:33: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]
+                        max_v = s.size();
+                              ~ ^~~~~~~~
+tabu.cpp:206:33: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        max_i = j;
+                              ~ ^
+tabu.cpp:223:33: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]
+                        max_v = s.size();
+                              ~ ^~~~~~~~
+tabu.cpp:224:33: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                        max_i = j;
+                              ~ ^
+tabu.cpp:239:36: warning: declaration shadows a field of 'Tabu' [-Wshadow]
+void Tabu::hybrid_evolutionary(int K){
+                                   ^
+././tabu.h:57:18: note: previous declaration is here
+    unsigned int K;
+                 ^
+tabu.cpp:241:15: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    this->K = K;
+            ~ ^
+tabu.cpp:249:41: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+        populations.push_back(Person(N, K, solutions, conflict_num));
+                              ~~~~~~    ^
+tabu.cpp:259:32: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        cross_over(populations[s1].config, populations[s2].config, offspring);
+                   ~~~~~~~~~~~ ^~
+tabu.cpp:259:56: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        cross_over(populations[s1].config, populations[s2].config, offspring);
+                                           ~~~~~~~~~~~ ^~
+tabu.cpp:260:9: error: no matching member function for call to 'tabu_search'
+        tabu_search(offspring);
+        ^~~~~~~~~~~
+././tabu.h:81:10: note: candidate function not viable: no known conversion from 'vector<set<int>>' to 'vector<set<unsigned int>>' for 1st argument
+    void tabu_search(std::vector<std::set<unsigned int> > config);
+         ^
+tabu.cpp:46:12: note: candidate function not viable: no known conversion from 'vector<set<int> >' to 'int' for 1st argument
+void Tabu::tabu_search(int K){
+           ^
+tabu.cpp:262:31: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+        Person s0 = Person(N, K, solutions, conflict_num);
+                    ~~~~~~    ^
+tabu.cpp:273:43: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+        if(worst_index != -1) populations[worst_index] = s0;
+                              ~~~~~~~~~~~ ^~~~~~~~~~~
+tabu.cpp:269:31: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+                worst_index = i;
+                            ~ ^
+tabu.cpp:277:12: error: out-of-line definition of 'solution_to_config' does not match any declaration in 'Tabu'
+void Tabu::solution_to_config(const vector<int> & solution, vector<set<int> >& config){
+           ^~~~~~~~~~~~~~~~~~
+././tabu.h:84:35: note: type of 1st parameter of member declaration does not match definition ('const std::vector<unsigned int> &' vs 'const vector<int> &')
+    void solution_to_config(const std::vector<unsigned int> & solution, std::vector<std::set<unsigned int> >& config);
+                                  ^
+tabu.cpp:281:2: warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+tabu.cpp:279:37: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'const value_type' (aka 'const int') [-Wshorten-64-to-32]
+        config[solutions[i]].insert(i);
+        ~~~~~~                      ^
+63 warnings and 4 errors generated.
+make: *** [obj/tabu.o] Error 1
