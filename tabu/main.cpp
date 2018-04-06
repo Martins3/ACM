@@ -21,7 +21,8 @@ int main(){
     // 测试编译
     Tabu tabu(0);
 
+    // 测试 Tabu 算法
+    tabu.tabu_search(70);
 
-    // 测试图的输入
     return 0;
 }

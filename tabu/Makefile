@@ -1,5 +1,5 @@
-CC = clang
-CFLAGS = -g -Weverything -I.
+CC = clang++
+CFLAGS = -g  -Wall -std=c++11 -I.
 
 ODIR = ./obj
 
@@ -19,7 +19,7 @@ OBJ = $(patsubst %, $(ODIR)/%, $(_OBJ))
 $(ODIR)/%.o :  %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-main.out: $(OBJ)
+tabu.out: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean

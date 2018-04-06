@@ -15,8 +15,8 @@ class Edge{ public:
 
 class Person{
 public:
-    std::vector<std::set<unsigned int> > config;
     int conflict_num;
+    std::vector<std::set<unsigned int> > config;
     Person(const unsigned int N, const unsigned int K, const std::vector<unsigned int> solutions, const int _conflict_num):conflict_num(_conflict_num){
         config = std::vector<std::set<unsigned int> >(K, std::set<unsigned int>());
         for(unsigned int i = 1; i <= N; i++){
@@ -57,23 +57,19 @@ private:
     unsigned int K;
     unsigned int max_iter;
 
-    // parameters
-    /**
-     * 为调参的提供接口
-     */
-    void initialization(bool is_he, std::vector<std::set<int> >& config);
-    void find_move(TabuMove& tabu_move, int iter);
-    void make_move(TabuMove& tabu_move, int iter);
+    void initialization(bool is_he, std::vector<std::set<unsigned int> >& config);
+    void find_move(TabuMove& tabu_move, unsigned int iter);
+    void make_move(TabuMove& tabu_move, unsigned int iter);
     void update_adjacent_table(int u, int vi, int vj);
 
     // graph
-    int * nodeHead;
+    std::vector<int> nodeHead;
     int nodePointer;
-    Edge * graph;
+    std::vector<Edge> graph;
 
 
     void add_edge(int x, int y);
-    void init_graph(unsigned int vertex_num, unsigned int edge_num);
+    void init_graph(int vertex_num, int edge_num);
     void make_graph();
 
     // Hybrid Evolutionary
@@ -83,10 +79,12 @@ private:
     std::vector<Person> populations; 
     void solution_to_config(const std::vector<unsigned int> & solution, std::vector<std::set<unsigned int> >& config);
 
-public:
-    ~Tabu();
-    Tabu(int data_version);
+    // some tools
+    void print_runtime_ds() const;
+    void print_graph();
 
+public:
+    Tabu(int data_version);
     void tabu_search(int K);
     void hybrid_evolutionary(int K);
 

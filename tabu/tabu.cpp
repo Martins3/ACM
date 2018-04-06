@@ -6,10 +6,11 @@
 #include <sstream>      // std::istringstream
 #include <cstdio>
 #include <set>
+#include <cassert>
 
 using namespace std;
 
-void Tabu::initialization(bool is_he, vector<set<int> >& config){
+void Tabu::initialization(bool is_he, vector<set<unsigned int> >& config){
     // init run time data structures
     solutions = vector<unsigned int>(N + 1, 0);
     best_solution = vector<unsigned int>(N + 1, 0);
@@ -20,17 +21,18 @@ void Tabu::initialization(bool is_he, vector<set<int> >& config){
 
     // generate initial value
     if(is_he){
-        for(size_t i = 1; i <= N; i++) solutions[i] = rand() % K;
-    }else{
         for(size_t i = 0; i < config.size(); i ++){
-            for(int v: config[i]){
+            for(unsigned int v: config[i]){
                 solutions[v] = i;
             }
         }
+    }else{
+        for(size_t i = 1; i <= N; i++) 
+            solutions[i] = (unsigned int)rand() % K;
     }
 
-    for(int x = 1; x <= N; x++){
-        for(int i = nodeHead[i]; i != -1; i = graph[i].head){
+    for(unsigned int x = 1; x <= N; x++){
+        for(int i = nodeHead[x]; i != -1; i = graph[i].head){
             int y = graph[i].y;
             adjacent_color_table[x][solutions[y]] ++;
         }
@@ -40,27 +42,36 @@ void Tabu::initialization(bool is_he, vector<set<int> >& config){
         conflict_num += adjacent_color_table[i][solutions[i]];        
     }
     min_conflict_num =  conflict_num;
+    
+    // print_runtime_ds();
 }
 
 
 void Tabu::tabu_search(int K){
     this->K = K;
-    vector<set<int> > t;
+    vector<set<unsigned int> > t;
     initialization(false, t);
+    cout << "initialization over" << endl;
 
     unsigned int iter = 0;
     max_iter = 100 * 10000;
     TabuMove tm;
+
+    
     while(conflict_num){
+        if(iter == 372){
+            cout << "impossible" << endl;
+        }
         find_move(tm, iter);
         make_move(tm, iter);
         iter ++;
         if(iter > max_iter) break;
+        printf("iter : %u conflict num %d\n", iter, conflict_num);
     }
 }
 
 
-void Tabu::tabu_search(vector<set<int> > config){
+void Tabu::tabu_search(vector<set<unsigned int> > config){
     initialization(true, config);
 
     int iter = 0;
@@ -75,17 +86,18 @@ void Tabu::tabu_search(vector<set<int> > config){
 }
 
 
-void Tabu::find_move(TabuMove& tabu_move, int iter){
+void Tabu::find_move(TabuMove& tabu_move, unsigned int iter){
     TabuMove tabu_best_move;
     TabuMove non_tabu_best_move;
 
 
-    for(size_t i = 0; i < N; i++){
-        if(adjacent_color_table[i][solutions[i]] > 0){
-            for(size_t k = 0; k < K; k++){
+    for(int i = 1; i <= N; i++){
+        if(adjacent_color_table[i][solutions[i]] != 0){
+            for(int k = 0; k < K; k++){
                 if(k == solutions[i]) continue;
 
-                int delta = adjacent_color_table[i][k] - adjacent_color_table[i][solutions[i]];
+                int delta = (int)adjacent_color_table[i][k] - (int)adjacent_color_table[i][solutions[i]];
+               
 
                 if(iter < tabu_tenure[i][k]){
                     if(delta < tabu_best_move.delta)
@@ -100,7 +112,7 @@ void Tabu::find_move(TabuMove& tabu_move, int iter){
 
 
     // when tabu is worse and non-tabu is better, use non-tabu
-    bool is_aspiration = (tabu_best_move.delta >= 0 && non_tabu_best_move.delta <= 0);
+    bool is_aspiration = (tabu_best_move.delta < 0 && non_tabu_best_move.delta > 0);
     if(is_aspiration)
         tabu_move = tabu_best_move;
     else
@@ -108,7 +120,7 @@ void Tabu::find_move(TabuMove& tabu_move, int iter){
 
 }
 
-void Tabu::make_move(TabuMove& tabu_move, int iter){
+void Tabu::make_move(TabuMove& tabu_move, unsigned int iter){
     int u = tabu_move.u;
     int vi = tabu_move.vi;
     int vj = tabu_move.vj;
@@ -119,10 +131,11 @@ void Tabu::make_move(TabuMove& tabu_move, int iter){
     // update current conflict nums
     conflict_num = conflict_num + delta;
     // update tabu tenure
-    tabu_tenure[u][vi] = iter + conflict_num + rand()%10;
+    tabu_tenure[u][vi] = iter + conflict_num + (unsigned int)rand()%10;
     // update the Adjacent_Color_Table;
     for(int i = nodeHead[u]; i != -1; i = graph[i].head){
         int y = graph[i].y;
+        assert(adjacent_color_table[y][vi]);
         adjacent_color_table[y][vi] --;
         adjacent_color_table[y][vj] ++;
     }
@@ -130,32 +143,44 @@ void Tabu::make_move(TabuMove& tabu_move, int iter){
 
 
 
-
 void Tabu::make_graph(){
+    cout << "begin to make graph" << endl;
     size_t max_len = 100;
     char line[max_len];
     while(true){
         fgets(line, max_len, stdin);
-        if(line[0] == 'c') continue;
+        if(line[0] != 'c') break;
     }
     
-    fgets(line, max_len, stdin);
     unsigned int vertex_num;
     unsigned int edge_num;
-    sscanf(line, "%u %u", &vertex_num, &edge_num);
+    sscanf(line + 7, "%u %u", &vertex_num, &edge_num);
+    printf("vertex num %u\nedge num %u\n", vertex_num, edge_num);
 
-    init_graph(vertex_num, edge_num); 
+    init_graph(vertex_num, edge_num);
+    this->N = vertex_num;
 
     for(size_t i = 0; i < edge_num; i++){
         fgets(line, max_len, stdin);
         int x;
         int y;
-        sscanf(line, "%d %d", &x, &y);
+        sscanf(line + 1, "%d %d", &x, &y);
         add_edge(x, y);
         add_edge(y, x);
     }
+    // print_graph();
 }
 
+void Tabu::print_graph(){
+    
+    for(size_t x = 1; x <= N; x++){
+        printf("%lu : ", x);
+        for(int i = nodeHead[x]; i != -1; i = graph[i].head){
+            printf("%d ", graph[i].y);
+        }
+        printf("\n");
+    }
+}
 
 void Tabu::add_edge(int x, int y){
    graph[nodePointer] = Edge(x, y, nodeHead[x]);
@@ -163,18 +188,14 @@ void Tabu::add_edge(int x, int y){
    nodePointer ++;
 }
 
-void Tabu::init_graph(unsigned int vertex_num, unsigned int edge_num) {
-    vertex_num += 10; edge_num += 10;
-    nodeHead = new int[vertex_num];
-    graph = new Edge[edge_num];
-    for(size_t i = 0; i < vertex_num; i++) nodeHead[i] = -1;
+void Tabu::init_graph(int vertex_num, int edge_num) {
+    vertex_num += 10; edge_num += 10; edge_num *= 2;
+    this->nodeHead = vector<int>(vertex_num, -1);
+    this->graph =  vector<Edge>(edge_num);
     nodePointer = 0;
+    cout << "init graph data structure finished !" << endl;
 }
 
-Tabu::~Tabu(){
-    delete [] nodeHead;
-    delete [] graph;
-}
 
 Tabu::Tabu(int data_version){
     // choose a right version to make the graph
@@ -208,7 +229,7 @@ void Tabu::cross_over(vector<set<unsigned int> > config_one, vector<set<unsigned
                 }
 
                 offspring.push_back(config_one[max_i]);
-                for(int v:config_one[max_i]){
+                for(unsigned int v:config_one[max_i]){
                     for(set<unsigned int>& s : config_two){
                         s.erase(v);
                     }
@@ -225,7 +246,7 @@ void Tabu::cross_over(vector<set<unsigned int> > config_one, vector<set<unsigned
                     } 
                 }
                 offspring.push_back(config_two[max_i]);
-                for(int v:config_one[max_i]){
+                for(unsigned int v:config_one[max_i]){
                     for(set<unsigned int>& s : config_one){
                         s.erase(v);
                     }
@@ -252,8 +273,8 @@ void Tabu::hybrid_evolutionary(int K){
     
     // 使用什么东西作为结束条件
     while(best_person){
-        int s1 = rand() % K;
-        int s2 = rand() % K;
+        int s1 = (unsigned int)rand() % K;
+        int s2 = (unsigned int)rand() % K;
 
         vector<set<unsigned int> > offspring;
         cross_over(populations[s1].config, populations[s2].config, offspring);
@@ -278,4 +299,33 @@ void Tabu::solution_to_config(const vector<unsigned int> & solution, vector<set<
     for(size_t i = 1; i <= N; i++){
         config[solutions[i]].insert(i);
     }
+}
+
+void Tabu::print_runtime_ds() const{
+    printf("conflict num %d\n", conflict_num);
+    printf("solutions\n");
+    for(size_t i = 0; i < solutions.size(); i++){
+        printf("%u ", solutions[i]);
+    }
+    printf("\n");
+
+    printf("adjacent color table\n");
+    for(size_t i = 0; i < adjacent_color_table.size(); i++){
+        for(size_t j = 0; j < adjacent_color_table[i].size(); j++){
+            printf("%u ", adjacent_color_table[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("tabu_tenure\n");
+    int I = tabu_tenure.size();
+    int J = tabu_tenure[0].size();
+    for(int i = 1; i < I; i++){
+        int j;
+        for(j = 0; j < J; j++){
+            printf("%u ", tabu_tenure[i][j]);
+        }
+        printf("\n");
+    }
+    printf("log finished !\n");
 }
