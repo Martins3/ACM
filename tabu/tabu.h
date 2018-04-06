@@ -26,8 +26,6 @@ public:
             config[solutions[i]].insert(i);
         }
     }
-    
-
 };
 
 class TabuMove{
@@ -49,7 +47,7 @@ class Tabu{
 private:
 
     // runtime data
-    std::vector<unsigned int> solutions; 
+    std::vector<unsigned int> solutions;
     std::vector<unsigned int> best_solution;
     std::vector<std::vector<unsigned int> > tabu_tenure;
     std::vector<std::vector<unsigned int> > adjacent_color_table;
@@ -77,16 +75,17 @@ private:
     void make_graph();
 
     // Hybrid Evolutionary
-    void cross_over(std::vector<std::set<unsigned int> > config_one, std::vector<std::set<unsigned int> > config_two, std::vector<std::set<unsigned int> > offspring);
+    void cross_over(std::vector<std::set<unsigned int> >& config_one, std::vector<std::set<unsigned int> >& config_two, std::vector<std::set<unsigned int> >& offspring);
     void tabu_search(std::vector<std::set<unsigned int> >& config, int iter_times);
     unsigned int population_size;
-    std::vector<Person> populations; 
+    std::vector<Person> populations;
     void solution_to_config(const std::vector<unsigned int> & solution, std::vector<std::set<unsigned int> >& config);
-    void config_to_solution(const std::vector<std::set<unsigned int> >& config, std::vector<unsigned int> solution);
+    void config_to_solution(const std::vector<std::set<unsigned int> >& config, std::vector<unsigned int>& solution);
 
     // some tools
     void print_runtime_ds() const;
     void print_graph();
+    void archive_result();
 
 
     // save population and read populations
@@ -95,7 +94,7 @@ private:
 public:
     Tabu(int data_version);
     void tabu_search(int K, int max_iter);
-    void hybrid_evolutionary(int K);
+    void hybrid_evolutionary(int K, bool load);
 
 };
 #endif // !ABU_H
