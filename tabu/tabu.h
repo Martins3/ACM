@@ -17,13 +17,17 @@ class Person{
 public:
     int conflict_num;
     std::vector<std::set<unsigned int> > config;
+
+    Person(){};
+
     Person(const unsigned int N, const unsigned int K, const std::vector<unsigned int> solutions, const int _conflict_num):conflict_num(_conflict_num){
         config = std::vector<std::set<unsigned int> >(K, std::set<unsigned int>());
         for(unsigned int i = 1; i <= N; i++){
             config[solutions[i]].insert(i);
         }
-         
     }
+    
+
 };
 
 class TabuMove{
@@ -74,18 +78,23 @@ private:
 
     // Hybrid Evolutionary
     void cross_over(std::vector<std::set<unsigned int> > config_one, std::vector<std::set<unsigned int> > config_two, std::vector<std::set<unsigned int> > offspring);
-    void tabu_search(std::vector<std::set<unsigned int> > config);
+    void tabu_search(std::vector<std::set<unsigned int> >& config, int iter_times);
     unsigned int population_size;
     std::vector<Person> populations; 
     void solution_to_config(const std::vector<unsigned int> & solution, std::vector<std::set<unsigned int> >& config);
+    void config_to_solution(const std::vector<std::set<unsigned int> >& config, std::vector<unsigned int> solution);
 
     // some tools
     void print_runtime_ds() const;
     void print_graph();
 
+
+    // save population and read populations
+    void save_populations();
+    void load_populations();
 public:
     Tabu(int data_version);
-    void tabu_search(int K);
+    void tabu_search(int K, int max_iter);
     void hybrid_evolutionary(int K);
 
 };

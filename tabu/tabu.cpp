@@ -47,14 +47,14 @@ void Tabu::initialization(bool is_he, vector<set<unsigned int> >& config){
 }
 
 
-void Tabu::tabu_search(int K){
+void Tabu::tabu_search(int K, int max_iter){
+    this->max_iter = max_iter;
     this->K = K;
     vector<set<unsigned int> > t;
     initialization(false, t);
-    cout << "initialization over" << endl;
+    cout << "initialization over, begin tabu search" << endl;
 
     unsigned int iter = 0;
-    max_iter = 1000 * 10000;
     TabuMove tm;
 
     
@@ -65,12 +65,12 @@ void Tabu::tabu_search(int K){
         iter ++;
         if(iter > max_iter) break;
 
-        if(iter % 1000 == 0)
+        if(iter % 10000 == 0)
             printf("iter %u conflict %d\n", iter, conflict_num);
     }
     
     if(conflict_num == 0){
-        freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/tabu/res.txt", "a", stdin);
+        freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/tabu/res.txt", "a", stdout);
         printf("K is %d\n", K);
         for(size_t i = 0; i < N; i++){
             printf("%d ", solutions[i]);
@@ -79,17 +79,16 @@ void Tabu::tabu_search(int K){
 }
 
 
-void Tabu::tabu_search(vector<set<unsigned int> > config){
+void Tabu::tabu_search(vector<set<unsigned int> >& config, int iter_time){
     initialization(true, config);
 
     int iter = 0;
-    max_iter = 1 * 10000;
     TabuMove tm;
     while(conflict_num){
         find_move(tm, iter);
         make_move(tm, iter);
         iter ++;
-        if(iter > max_iter) break;
+        if(iter > iter_time) break;
     }
 }
 
@@ -106,7 +105,6 @@ void Tabu::find_move(TabuMove& tabu_move, unsigned int iter){
 
                 int delta = (int)adjacent_color_table[i][k] - (int)adjacent_color_table[i][solutions[i]];
                
-
                 if(iter < tabu_tenure[i][k]){
                     if(delta < tabu_best_move.delta)
                         tabu_best_move = TabuMove(i, solutions[i], k, delta);
@@ -268,15 +266,15 @@ void Tabu::cross_over(vector<set<unsigned int> > config_one, vector<set<unsigned
 void Tabu::hybrid_evolutionary(int K){
     // 设置数值 K
     this->K = K;
-   
+    printf("hybrid evolutionary start\n");
     population_size = 10;
     vector<set<unsigned int> > t_config;
     int best_person = TabuMove::INF; // 记录population 中间的 最佳的数值
     for(size_t i = 0; i < population_size; i++){
-        tabu_search(K);
-        // 刚刚计算的结束， tabu search 数据的都是合法的， 此时的将数据的放到的正确的位置上面
+        tabu_search(K, 10 * 10000);
         populations.push_back(Person(N, K, solutions, conflict_num));
         best_person = min(best_person, conflict_num);
+        printf("the person %lu has conflicts %d\n\n", i, conflict_num);
     }
     
     // 使用什么东西作为结束条件
@@ -286,7 +284,7 @@ void Tabu::hybrid_evolutionary(int K){
 
         vector<set<unsigned int> > offspring;
         cross_over(populations[s1].config, populations[s2].config, offspring);
-        tabu_search(offspring);
+        tabu_search(offspring, 10 * 10000);
 
         Person s0 = Person(N, K, solutions, conflict_num);
         best_person = min(best_person, s0.conflict_num);
@@ -299,6 +297,8 @@ void Tabu::hybrid_evolutionary(int K){
                 worst_person = populations[i].conflict_num;
             }
         }
+
+        printf("%d 被替换出去了\n", worst_index);
         if(worst_index != -1) populations[worst_index] = s0;
     }
 }
@@ -306,6 +306,15 @@ void Tabu::hybrid_evolutionary(int K){
 void Tabu::solution_to_config(const vector<unsigned int> & solution, vector<set<unsigned int> >& config){
     for(size_t i = 1; i <= N; i++){
         config[solutions[i]].insert(i);
+    }
+}
+
+void Tabu::config_to_solution(const vector<set<unsigned int> >& config, vector<unsigned int> solutions){    
+    for(size_t i = 0; i < K; i++){
+        const set<int> & s = config[i];
+        for(int n : s){
+            solutions[n] = i;
+        }
     }
 }
 
@@ -336,4 +345,32 @@ void Tabu::print_runtime_ds() const{
         printf("\n");
     }
     printf("log finished !\n");
+}
+
+void Tabu::save_populations(){
+    freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/tabu/res.txt", "w", stdout);
+    for(const Person & person : populations){
+        printf("%d ", person.conflict_num);
+        vector<unsigned int> sol = vector<unsigned int>(N);
+        config_to_solution(person.config,  sol); 
+        for(size_t i = 0; i < N; i++){
+            printf("%d ", sol[i]);
+        }
+        printf("\n");
+    }
+    freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/tabu/log.txt", "a", stdout);
+}
+
+void Tabu::load_populations(){
+    vector<unsigned int> sol;
+    int conf;
+    for(size_t i = 0; i < population_size; i++){
+        scanf("%d", &conf);
+        for(size_t i = 0; i < N; i++){
+            int t;
+            scanf("%d", &t);
+            sol.push_back(t);
+        }
+        populations.emplace_back(N, K, sol, conf);
+    }
 }

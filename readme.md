@@ -3,8 +3,8 @@
 
 # todo list
 ## POj
-[0](http://poj.org/problem?id=3276)
-[1](http://poj.org/problem?id=3684)
+1. http://poj.org/problem?id=3276
+2. http://poj.org/problem?id=3684
 ## Leetcode
 1. 367
 2. https://leetcode.com/problems/palindrome-pairs/description/
