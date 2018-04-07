@@ -21,7 +21,10 @@ using namespace std;
 int main(){
     // 测试编译
     Tabu tabu(0);
-    // tabu.tabu_search(50, 1000 * 10000);
-    tabu.hybrid_evolutionary(48, false);
+    // tabu.tabu_search(49, 1000 * 10000);
+
+    // tabu.hybrid_evolutionary(50, false, 30);
+    tabu.hybrid_evolutionary(48, true, 4);
+    // tabu.hybrid_evolutionary(48, false, 30);
     return 0;
 }

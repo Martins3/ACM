@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 #include <set>
-
+#include <cassert>
+#include <iostream>
 
 class Edge{ public:
     int x;
@@ -20,7 +21,8 @@ public:
 
     Person(){};
 
-    Person(const unsigned int N, const unsigned int K, const std::vector<unsigned int> solutions, const int _conflict_num):conflict_num(_conflict_num){
+    Person(const unsigned int N, const unsigned int K, const std::vector<unsigned int> & solutions, const int _conflict_num):conflict_num(_conflict_num){
+
         config = std::vector<std::set<unsigned int> >(K, std::set<unsigned int>());
         for(unsigned int i = 1; i <= N; i++){
             config[solutions[i]].insert(i);
@@ -59,7 +61,7 @@ private:
     unsigned int K;
     unsigned int max_iter;
 
-    void initialization(bool is_he, std::vector<std::set<unsigned int> >& config);
+    void initialization(bool is_he, const std::vector<std::set<unsigned int> >& config);
     void find_move(TabuMove& tabu_move, unsigned int iter);
     void make_move(TabuMove& tabu_move, unsigned int iter);
     void update_adjacent_table(int u, int vi, int vj);
@@ -75,8 +77,8 @@ private:
     void make_graph();
 
     // Hybrid Evolutionary
-    void cross_over(std::vector<std::set<unsigned int> >& config_one, std::vector<std::set<unsigned int> >& config_two, std::vector<std::set<unsigned int> >& offspring);
-    void tabu_search(std::vector<std::set<unsigned int> >& config, int iter_times);
+    void cross_over(std::vector<std::set<unsigned int> > config_one, std::vector<std::set<unsigned int> > config_two, std::vector<std::set<unsigned int> >& offspring);
+    void tabu_search(const std::vector<std::set<unsigned int> >& config, int iter_times, int break_line);
     unsigned int population_size;
     std::vector<Person> populations;
     void solution_to_config(const std::vector<unsigned int> & solution, std::vector<std::set<unsigned int> >& config);
@@ -94,7 +96,7 @@ private:
 public:
     Tabu(int data_version);
     void tabu_search(int K, int max_iter);
-    void hybrid_evolutionary(int K, bool load);
+    void hybrid_evolutionary(int K, bool load, int population_size);
 
 };
 #endif // !ABU_H

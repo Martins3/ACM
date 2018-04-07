@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void Tabu::initialization(bool is_he, vector<set<unsigned int> >& config){
+void Tabu::initialization(bool is_he, const vector<set<unsigned int> >& config){
     // init run time data structures
     solutions = vector<unsigned int>(N + 1, 0);
     best_solution = vector<unsigned int>(N + 1, 0);
@@ -63,8 +63,9 @@ void Tabu::tabu_search(int K, int max_iter){
         iter ++;
         if(iter > max_iter) break;
 
-        if(iter % 10000 == 0)
+        if(iter % 10000 == 0){
             printf("iter %u conflict %d\n", iter, conflict_num);
+        }
     }
     archive_result();
 }
@@ -80,7 +81,7 @@ void Tabu::archive_result(){
     }
 }
 
-void Tabu::tabu_search(vector<set<unsigned int> >& config, int iter_time){
+void Tabu::tabu_search(const vector<set<unsigned int> >& config, int iter_time, int break_line){
     initialization(true, config);
 
     int iter = 0;
@@ -90,8 +91,11 @@ void Tabu::tabu_search(vector<set<unsigned int> >& config, int iter_time){
         make_move(tm, iter);
         iter ++;
         if(iter > iter_time) break;
-        if(iter % 10000 == 0)
+        if(iter % 100)
+            if(conflict_num < break_line) return; 
+        if(iter % 10000 == 0){
             printf("iter %u conflict %d\n", iter, conflict_num);
+        }
     }
 }
 
@@ -218,8 +222,9 @@ Tabu::Tabu(int data_version){
 }
 
 
-void Tabu::cross_over(vector<set<unsigned int> >& config_one, vector<set<unsigned int> >& config_two,
+void Tabu::cross_over(vector<set<unsigned int> > config_one, vector<set<unsigned int> > config_two,
     vector<set<unsigned int> >& offspring){
+        int os_size = 0;
         // make sure offspring is empty
         for(size_t i = 0; i < K; i++){
             if(i % 2){
@@ -233,9 +238,17 @@ void Tabu::cross_over(vector<set<unsigned int> >& config_one, vector<set<unsigne
                     }
                 }
 
-                if(max_i == -1) continue;
-                offspring.push_back(config_one[max_i]);
-                for(unsigned int v:config_one[max_i]){
+                if(max_i == -1){
+                    offspring.push_back(set<unsigned int>());
+                    continue;
+                }
+                set<unsigned int> purge = config_one[max_i]; 
+                os_size += purge.size();
+                offspring.push_back(purge);
+                for(unsigned int v:purge){
+                    for(set<unsigned int>& s : config_one){
+                        s.erase(v);
+                    }
                     for(set<unsigned int>& s : config_two){
                         s.erase(v);
                     }
@@ -251,24 +264,46 @@ void Tabu::cross_over(vector<set<unsigned int> >& config_one, vector<set<unsigne
                         max_i = j;
                     }
                 }
-                if(max_i == -1) continue;
-                offspring.push_back(config_two[max_i]);
-                for(unsigned int v:config_one[max_i]){
+
+                if(max_i == -1){
+                    offspring.push_back(set<unsigned int>());
+                    continue;
+                }
+
+                set<unsigned int> purge = config_two[max_i]; 
+                os_size += purge.size();
+                offspring.push_back(purge);
+                for(unsigned int v:purge){
                     for(set<unsigned int>& s : config_one){
                         s.erase(v);
                     }
+                    for(set<unsigned int>& s : config_two){
+                        s.erase(v);
+                    }
                 }
-                config_two[max_i].clear();
             }
         }
-}
+
+        // 将的conflg_one and config_two 剩余数值随机添加到其中
+        set<unsigned int> residual;
+        for(const set<unsigned int> & s : config_one){
+            residual.insert(s.begin(), s.end());
+        }
+        for(const set<unsigned int> & s : config_two){
+            residual.insert(s.begin(), s.end());
+        }
+        for(unsigned int num : residual){
+            int k = rand() % K;
+            offspring[k].insert(num);
+        }
+ }
 
 
-void Tabu::hybrid_evolutionary(int K, bool load){
+void Tabu::hybrid_evolutionary(int K, bool load, int population_size){
     // 设置数值 K
     this->K = K;
     printf("hybrid evolutionary start\n");
-    population_size = 10;
+    this->population_size = population_size;
     vector<set<unsigned int> > t_config;
     int best_person = TabuMove::INF; // 记录population 中间的 最佳的数值
 
@@ -290,14 +325,21 @@ void Tabu::hybrid_evolutionary(int K, bool load){
         int s2 = (unsigned int)rand() % population_size;
         while(s1 == s2) s2 = (unsigned int)rand() % population_size;
 
+        int break_line = 0;
+        for(size_t i = 0; i < population_size; i++){
+            break_line = max(break_line, populations[i].conflict_num);
+        }
+
         vector<set<unsigned int> > offspring;
         cross_over(populations[s1].config, populations[s2].config, offspring);
-        tabu_search(offspring, 10 * 10000);
+        tabu_search(offspring, 50 * 10000, break_line);
 
+        
         Person s0 = Person(N, K, solutions, conflict_num);
+
         best_person = min(best_person, s0.conflict_num);
 
-        int worst_person = 0;
+        int worst_person = s0.conflict_num;
         int worst_index = -1;
         for(size_t i = 0; i < population_size; i++){
             if(populations[i].conflict_num > worst_person){
@@ -306,7 +348,13 @@ void Tabu::hybrid_evolutionary(int K, bool load){
             }
         }
 
-        printf("%d is out, conflict is %d \n", worst_index,best_person);
+        for(size_t i = 0; i < population_size; i++){
+            printf("%d ", populations[i].conflict_num);
+        }
+        printf("\n");
+
+        printf("%d is out, conflict is %d \n", worst_index, best_person);
+    
         if(worst_index != -1) populations[worst_index] = s0;
     }
 
@@ -362,7 +410,7 @@ void Tabu::save_populations(){
     file.open ("./populations.txt");
     for(const Person & person : populations){
         file << person.conflict_num << " ";
-        vector<unsigned int> sol = vector<unsigned int>(N);
+        vector<unsigned int> sol = vector<unsigned int>(N + 1);
         config_to_solution(person.config,  sol);
         for(size_t i = 0; i < N; i++){
             file << sol[i] << " ";
@@ -384,5 +432,8 @@ void Tabu::load_populations(){
             sol.push_back(t);
         }
         populations.emplace_back(N, K, sol, conf);
+        sol.clear();
+
+
     }
 }

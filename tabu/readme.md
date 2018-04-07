@@ -34,3 +34,6 @@ while(there exist improving steps)
 ```
 what only added is every time a move performed, add a tenure time stick to it !
 ```
+
+### bugs
+1. 没有正确的处理没有被添加的数值，　导致那些数值会被默认赋值为０
