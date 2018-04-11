@@ -38,8 +38,12 @@ void Tabu::initialization(bool is_he, const vector<set<unsigned int> >& config){
         }
     }
 
+
     for(size_t i = 1; i <= N; i++){
         conflict_num += adjacent_color_table[i][solutions[i]];
+    }
+    if(is_he){
+        printf("after cross over, conflict %d\n", conflict_num);
     }
     min_conflict_num =  conflict_num;
     // print_runtime_ds();
@@ -91,8 +95,8 @@ void Tabu::tabu_search(const vector<set<unsigned int> >& config, int iter_time, 
         make_move(tm, iter);
         iter ++;
         if(iter > iter_time) break;
-        if(iter % 100)
-            if(conflict_num < break_line) return; 
+        if(min_conflict_num < break_line) return;
+
         if(iter % 10000 == 0){
             printf("iter %u conflict %d\n", iter, conflict_num);
         }
@@ -142,6 +146,11 @@ void Tabu::make_move(TabuMove& tabu_move, unsigned int iter){
     solutions[u] = vj;
     // update current conflict nums
     conflict_num = conflict_num + delta * 2;
+    // update the best conflict num
+    if(conflict_num < min_conflict_num){
+        min_conflict_num = conflict_num;
+        best_solution = solutions;
+    }
     // update tabu tenure
     tabu_tenure[u][vi] = iter + conflict_num + (unsigned int)rand()%10;
     // update the Adjacent_Color_Table;
@@ -311,7 +320,7 @@ void Tabu::hybrid_evolutionary(int K, bool load, int population_size){
         load_populations();
     }else{
         for(size_t i = 0; i < population_size; i++){
-            tabu_search(K, 15 * 10000);
+            tabu_search(K, 5 * 10000);
             populations.emplace_back(N, K, solutions, conflict_num);
             best_person = min(best_person, conflict_num);
             printf("the person %lu has conflicts %d\n\n", i, conflict_num);
@@ -335,7 +344,7 @@ void Tabu::hybrid_evolutionary(int K, bool load, int population_size){
         tabu_search(offspring, 50 * 10000, break_line);
 
         
-        Person s0 = Person(N, K, solutions, conflict_num);
+        Person s0 = Person(N, K, best_solution, min_conflict_num);
 
         best_person = min(best_person, s0.conflict_num);
 

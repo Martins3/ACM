@@ -7,7 +7,7 @@ ODIR = ./obj
 # 添加config.h
 DEPS = tabu.h
 
-# 添加一个mian.c 
+# 添加一个mian.c
 SOURCE = tabu.cpp
 SOURCE_PLUS_MAIN = main.cpp $(SOURCE)
 

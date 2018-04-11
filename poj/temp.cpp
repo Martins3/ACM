@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cmath>
 #include <stack>
@@ -14,18 +15,12 @@
 #include <iterator>
 #include <string>
 #include <cassert>
-#include <cstdlib>
-#include "./tabu.h"
-
 
 using namespace std;
-int main(){
-    // 测试编译
-    Tabu tabu(0);
-    tabu.tabu_search(50, 1000 * 10000);
+#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);
+#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/output.txt", "w", stdout);
 
-    // tabu.hybrid_evolutionary(50, false, 30);
-    // tabu.hybrid_evolutionary(49, false, 5);
-    // tabu.hybrid_evolutionary(48, false, 30);
-    return 0;
+int main(int argc, char *argv[]){
+  cout << "test the vim" << endl;
+  return 0;
 }

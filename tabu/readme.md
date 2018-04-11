@@ -36,4 +36,5 @@ what only added is every time a move performed, add a tenure time stick to it !
 ```
 
 ### bugs
-1. 没有正确的处理没有被添加的数值，　导致那些数值会被默认赋值为０
+1. 随机分配颜色的时候， 没有保证的所有的颜色都是的被分配出去， 有可能导致整个图上面的实际含有的颜色的数目小于
+K的大小， 但是实际上的结果比想象的好， 所以担心其实的含有更加危险的错误
