@@ -3,10 +3,10 @@ https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
 
 ## 常用函数
 1. stoi
-2. string 是可以改变的 
+2. string 是可以改变的
 3. find 字符串包含 int l = str1.find(str2);
 4. char 大小写切换 tolower() toupper() islower isupper
-5. substr() 
+5. substr()
 ```
 std::string str="We think in generalities, but we live in details.";
                                            // (quoting Alfred N. Whitehead)
@@ -28,7 +28,7 @@ characters have been read or either a newline or the end-of-file is reached, whi
 
 A newline character makes fgets stop reading, but it is considered a valid character by the function and included in the string copied to str.
 2. scanf 读取str 的时候， 前面的空字符必定会被抛弃， 后面的不会处理， 也就是下一次读取的时候继续
-## spilt 
+## spilt
 ```
 std::string s = "scott>=tiger>=mushroom";
 std::string delimiter = ">=";
@@ -42,10 +42,9 @@ while ((pos = s.find(delimiter)) != std::string::npos) {
 }
 std::cout << s << std::endl;
 ```
-# 
 
 ## string 和 char[] 的转换
-1. 
+1.
 ```
 char arr[];
 string a(arr)
@@ -69,10 +68,10 @@ string s;
 
 ## 来自于 cstring 常用函数
 1. strcpy
-2. scanf 
+2. scanf
 Any number of non-whitespace characters, stopping at the first whitespace character found. A terminating null character is automatically added at the end of the stored sequence.
 3. sscanf
-4. getline 
+4. getline
 
 ## 正则表达式
 1. strchr

@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/memory.dir/uva/contest/12/UVa12661.cpp.o  -o memory 
