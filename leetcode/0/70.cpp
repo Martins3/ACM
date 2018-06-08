@@ -17,24 +17,18 @@
 #include <cassert>
 
 using namespace std;
+#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
+#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
 
 class Solution {
 public:
-    uint32_t reverseBits(uint32_t n) {
-        uint32_t zero = 0;
-        uint32_t res = 0;
-        for (int i = 0; i < 32; ++i) {
-            uint32_t b =  ((n & (1 << i)) >> i) << (31 - i);
-            zero = zero | b;
-        }
-        return zero;
+    int climbStairs(int n) {
+
     }
 };
-
 int main(){
-    Solution s;
-    int a = s.reverseBits(15);
-    cout << a << endl;
-    printf("%x\n", a);
+//    REOPEN_READ
+//   REOPEN_WRITE
+
     return 0;
 }
