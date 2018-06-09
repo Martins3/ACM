@@ -20,29 +20,33 @@ using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
 
-
+int R[10] = {0, 0, 2, 3, 3, 2, 2, 3, 0, 2};
 class Solution {
 public:
-    int Cn(int n, int m){
-        long long res = 1;
-        for (int i = 1; i <= m; ++i) {
-            res = res * (n - i + 1) / i;
+    bool test_num(int n){
+        bool same = true;
+        while(n){
+            int m = n % 10;
+            if(R[m] == 3) return false;
+            if(R[m] == 2) same = false;
+            n = n / 10;
         }
-        return res;
-    }
 
-    int climbStairs(int n) {
+        if(same) return false;
+        return true;
+    }
+    int rotatedDigits(int N) {
         int res = 0;
-        for (int i = 0; i <= n / 2; ++i) {
-            res += Cn(n - i , i);
+        for (int i = 1; i <= N; ++i) {
+            res += test_num(i);
         }
         return res;
     }
 };
+
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
-    Solution s;
-    cout << s.climbStairs(44);
+
     return 0;
 }

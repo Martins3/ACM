@@ -1,6 +1,3 @@
-#ifndef INFO_H
-#define INFO_H
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,7 +5,6 @@
 #include <stack>
 #include <sstream>
 #include <climits>
-#include <forward_list>
 #include <deque>
 #include <set>
 #include <utility>
@@ -18,17 +14,21 @@
 #include <algorithm>
 #include <iterator>
 #include <string>
-#include <unordered_set>
-#include <unordered_map>
 #include <cassert>
 
 using namespace std;
+#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
+#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+class Solution {
+public:
+    string reverseStr(string s, int k) {
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    }
 };
 
-#endif // FO_H
+int main(){
+//    REOPEN_READ
+//   REOPEN_WRITE
+
+    return 0;
+}

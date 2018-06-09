@@ -15,34 +15,24 @@
 #include <iterator>
 #include <string>
 #include <cassert>
+#include "../info.hpp"
 
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
 
-
 class Solution {
 public:
-    int Cn(int n, int m){
-        long long res = 1;
-        for (int i = 1; i <= m; ++i) {
-            res = res * (n - i + 1) / i;
-        }
-        return res;
-    }
-
-    int climbStairs(int n) {
-        int res = 0;
-        for (int i = 0; i <= n / 2; ++i) {
-            res += Cn(n - i , i);
-        }
-        return res;
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        // 需要想一想
     }
 };
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
+
     Solution s;
-    cout << s.climbStairs(44);
+    vector<int> v{4,3,2,7,8,2,3,1};
+    print_v(s.findDisappearedNumbers(v));
     return 0;
 }

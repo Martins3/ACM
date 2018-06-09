@@ -20,29 +20,37 @@ using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
 
+const int  LEN = 26 + 26;
+bool Jewel[LEN];
 
 class Solution {
 public:
-    int Cn(int n, int m){
-        long long res = 1;
-        for (int i = 1; i <= m; ++i) {
-            res = res * (n - i + 1) / i;
+    int numJewelsInStones(string J, string S) {
+        memset(Jewel, false, sizeof(Jewel));
+        for(char c : J){
+            if(std::islower(c))
+                Jewel[c - 'a'] = true;
+            else
+                Jewel[c - 'A' + 26] = true;
         }
-        return res;
-    }
 
-    int climbStairs(int n) {
         int res = 0;
-        for (int i = 0; i <= n / 2; ++i) {
-            res += Cn(n - i , i);
+        for(char c: S){
+            if(std::islower(c)){
+                if(Jewel[c - 'a'])
+                    res ++;
+            }else{
+                if(Jewel[c - 'A' + 26])
+                    res ++;
+            }
         }
         return res;
     }
 };
+
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
-    Solution s;
-    cout << s.climbStairs(44);
+
     return 0;
 }
