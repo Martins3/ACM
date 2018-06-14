@@ -2,13 +2,9 @@
 1. lower_bound
 ```
  std::vector<int> data = { 1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6 };
- 
     auto lower = std::lower_bound(data.begin(), data.end(), 4);
     auto upper = std::upper_bound(data.begin(), data.end(), 4);
- 
     std::copy(lower, upper, std::ostream_iterator<int>(std::cout, " "));
- 
-    
     auto j = lower_bound(num.cbegin(), num.cend(), t);
     if(*j == t){
         printf("%d found at %d\n", t, (int)distance(num.cbegin(), j) + 1);
@@ -48,7 +44,6 @@
     2. 对象的equal的比较
     如果在class 中间的重载了运算符 < 那么就是可以保证 如果两者没有大小关系， 那么不会出现
     只有第一个元素会被添加， 比较关系也是的排序的基准。
-    
 2. 查询是否含有
     find(x) == set.end()
 

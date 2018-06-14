@@ -19,37 +19,27 @@
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
+const int MAX_LEN = 100;
 class Solution {
 public:
-    int calPoints(vector<string>& ops) {
-        stack<int> stk;
-        for(string str : ops){
-            if(str == "C"){
-                stk.pop();
-            }else if(str == "D"){
-                stk.push(stk.top() * 2);
-            }else if(str == "+"){
-                int t =  stk.top(); stk.pop();
-                int m = stk.top();
-                stk.push(t);
-                stk.push(m + t);
-            }else{
-                stk.push(stoi(str));
+    vector<int> numberOfLines(vector<int>& widths, string S) {
+        int lineNum = 1;
+        int lineLen = 0;
+        for(char c : S){
+            if(lineLen + widths[c - 'a'] > MAX_LEN){
+                lineLen = widths[c - 'a'];
+                lineNum ++;
+                continue;
             }
+            lineLen += widths[c - 'a'];
         }
-        int res = 0;
-        while(!stk.empty()){
-             res += stk.top();
-             stk.pop();
-        }
-        return res;
+        return vector<int>{lineNum, lineLen};
     }
 };
-
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
 
-    Solution s;
     return 0;
 }

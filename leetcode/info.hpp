@@ -4,6 +4,7 @@
 #include<cstddef>
 #include<vector>
 #include<iostream>
+#include<string>
 
 struct TreeNode {
     int val;
@@ -14,6 +15,12 @@ struct TreeNode {
 
 void print_v(std::vector<int> v){
     for(int i : v)
+        std::cout << i << " ";
+    std::cout << std::endl;
+}
+
+void print_v(std::vector<std::string> v){
+    for(std::string i : v)
         std::cout << i << " ";
     std::cout << std::endl;
 }

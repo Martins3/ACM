@@ -17,10 +17,21 @@
 #include <cassert>
 
 using namespace std;
-#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/output.txt", "w", stdout);
+#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
+#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        // use heap
+
+
+    }
+};
 
 int main(){
+//    REOPEN_READ
+//   REOPEN_WRITE
 
     return 0;
 }

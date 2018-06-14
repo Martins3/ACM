@@ -177,6 +177,22 @@ or, in C++11,
 
 std::sort(std::begin(cone), std::end(cone), comp);
 
+
+struct MyStruct
+{
+    int key;
+    std::string stringValue;
+
+    MyStruct(int k, const std::string& s) : key(k), stringValue(s) {}
+};
+
+struct less_than_key
+{
+    inline bool operator() (const MyStruct& struct1, const MyStruct& struct2)
+    {
+        return (struct1.key < struct2.key);
+    }
+};
 处理数组和处理vector 使用函数相同的
 ```
 

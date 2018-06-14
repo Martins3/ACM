@@ -19,30 +19,19 @@
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
 class Solution {
 public:
-    int calPoints(vector<string>& ops) {
-        stack<int> stk;
-        for(string str : ops){
-            if(str == "C"){
-                stk.pop();
-            }else if(str == "D"){
-                stk.push(stk.top() * 2);
-            }else if(str == "+"){
-                int t =  stk.top(); stk.pop();
-                int m = stk.top();
-                stk.push(t);
-                stk.push(m + t);
-            }else{
-                stk.push(stoi(str));
-            }
+    string shiftingLetters(string S, vector<int>& shifts) {
+        int last = 0;
+        int strIndex = S.size() - 1;
+        for (int i = shifts.size() - 1; i >=0; i--) {
+            int len = (shifts[i] + last) % 26;
+            S[strIndex] = ((S[strIndex] - 'a' + 0) + len) % 26 + 'a';
+            last = len;
+            strIndex --;
         }
-        int res = 0;
-        while(!stk.empty()){
-             res += stk.top();
-             stk.pop();
-        }
-        return res;
+        return S;
     }
 };
 
@@ -51,5 +40,7 @@ int main(){
 //   REOPEN_WRITE
 
     Solution s;
+    vector<int> a{3, 5, 9};
+    cout << s.shiftingLetters("abc", a);
     return 0;
 }

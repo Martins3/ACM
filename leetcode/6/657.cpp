@@ -19,30 +19,28 @@
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
 class Solution {
 public:
-    int calPoints(vector<string>& ops) {
-        stack<int> stk;
-        for(string str : ops){
-            if(str == "C"){
-                stk.pop();
-            }else if(str == "D"){
-                stk.push(stk.top() * 2);
-            }else if(str == "+"){
-                int t =  stk.top(); stk.pop();
-                int m = stk.top();
-                stk.push(t);
-                stk.push(m + t);
-            }else{
-                stk.push(stoi(str));
-            }
+    bool judgeCircle(string moves) {
+        pair<int, int> pos(0, 0);
+        for(char c: moves){
+             switch(c){
+                case 'D':
+                    pos.second --;
+                    break;
+                case 'L':
+                    pos.first --;
+                    break;
+                case 'R':
+                    pos.first ++;
+                    break;
+                case 'U':
+                    pos.second ++;
+                    break;
+             }
         }
-        int res = 0;
-        while(!stk.empty()){
-             res += stk.top();
-             stk.pop();
-        }
-        return res;
+        return !(pos.first || pos.second);
     }
 };
 
@@ -50,6 +48,5 @@ int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
 
-    Solution s;
     return 0;
 }

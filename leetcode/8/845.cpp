@@ -19,37 +19,36 @@
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
 class Solution {
 public:
-    int calPoints(vector<string>& ops) {
-        stack<int> stk;
-        for(string str : ops){
-            if(str == "C"){
-                stk.pop();
-            }else if(str == "D"){
-                stk.push(stk.top() * 2);
-            }else if(str == "+"){
-                int t =  stk.top(); stk.pop();
-                int m = stk.top();
-                stk.push(t);
-                stk.push(m + t);
-            }else{
-                stk.push(stoi(str));
+    int longestMountain(vector<int>& A) {
+        if(A.size() <= 2) return 0;
+        int last  = -1;
+        int res = 0;
+        if(A[1] > A[0]) last = 0;
+        for (int i = 1; i < A.size() - 1; ++i) {
+            if(A[i] < A[i - 1] && A[i] < A[i + 1]){
+                if(last == -1){
+                    last = i;
+                }else{
+                    res = max(res, i - last  + 1);
+                }
             }
         }
-        int res = 0;
-        while(!stk.empty()){
-             res += stk.top();
-             stk.pop();
+
+        // 7
+        if(last != -1){
+            if(A[A.size() - 1] < A[A.size() - 2])
+                res = max(res, (int)(A.size() - 1 - last  + 1));
         }
+
         return res;
     }
 };
-
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
 
-    Solution s;
     return 0;
 }

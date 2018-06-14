@@ -19,29 +19,36 @@
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
+
 class Solution {
 public:
-    int calPoints(vector<string>& ops) {
-        stack<int> stk;
-        for(string str : ops){
-            if(str == "C"){
-                stk.pop();
-            }else if(str == "D"){
-                stk.push(stk.top() * 2);
-            }else if(str == "+"){
-                int t =  stk.top(); stk.pop();
-                int m = stk.top();
-                stk.push(t);
-                stk.push(m + t);
-            }else{
-                stk.push(stoi(str));
-            }
+    bool is_vowel(char c) {
+        c = tolower(c);
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+
+    void change(string & word){
+        if(!is_vowel(word[0])){
+            word.push_back(word[0]);
+            word.erase(0, 1);
         }
-        int res = 0;
-        while(!stk.empty()){
-             res += stk.top();
-             stk.pop();
+        word += "ma";
+    }
+
+    string toGoatLatin(string S) {
+        string res;
+        stringstream iss(S);
+
+        string append = "a";
+        string word;
+        while(iss >> word){
+            change(word);
+            word += append;
+            res += word;
+            res += " ";
+            append.push_back('a');
         }
+        res.pop_back();
         return res;
     }
 };
@@ -51,5 +58,6 @@ int main(){
 //   REOPEN_WRITE
 
     Solution s;
+    cout << s.toGoatLatin("I speak Goat Latin");
     return 0;
 }
