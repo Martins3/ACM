@@ -18,7 +18,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <cassert>
-#include "../info.h"
+#include "../info.hpp"
 
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);

@@ -27,7 +27,6 @@ using namespace std;
  * 如何利用KMP的计算方法
  * 首先将 字符串 翻转的过来的， 然后看的可以回退的到哪一个的位置
  * 构建 s 的 kmp 数组， 然后认为 p 是p 的查询
- * 07:34 PM
  */
 class Solution {
 public:
@@ -47,12 +46,12 @@ public:
             }
 
             while(s[pos] != s[len] && len > 0){
-                len = next[len - 1];    
+                len = next[len - 1];
             }
             if(len || s[pos] == s[len]) len ++;
             next[pos] = len;
         }
-        
+
         // 查询 p
         // 由于的长度相同
         int i = 0; // i 文本指针

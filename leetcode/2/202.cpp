@@ -50,11 +50,9 @@ public:
 };
 
 int main(){
-//    REOPEN_READ
-//   REOPEN_WRITE
-
     Solution s;
     cout << s.isHappy(2);
+    
 
     return 0;
 }

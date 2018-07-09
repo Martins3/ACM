@@ -70,9 +70,11 @@ public:
         return s;
     }
 };
+
 int main(){
     REOPEN_READ
     //REOPEN_WRITE
+
     Solution s;
     cout << s.intToRoman(1);
     cout << s.intToRoman(19) << endl;
