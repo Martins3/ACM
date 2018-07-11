@@ -27,14 +27,11 @@ class Solution {
 public:
     /**
      * 首先的挑选数值， 最多实现含有 n 个， 然后将两者融合起来
-     * 
      * 合并两个数值的办法， 将最大的一组数值取出来即可
+     *
      */
-    vector<int> merge(vector<int> & nums1, vector<int> & nums2){
-
-    }
     vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
-        
+
     }
 };
 
