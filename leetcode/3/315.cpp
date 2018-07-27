@@ -52,7 +52,7 @@ public:
         build(1, 0, size - 1);
     }
 
-    void update(int loc, int pos){
+    void update(int loc, const int pos){
         /**
          * 有必要更新到最下面吗?
          */
@@ -64,7 +64,7 @@ public:
 
         Node * l = tree + loc * 2;
         // 左区间
-        if(l->right >= loc){
+        if(l->right >= pos){
             update(loc * 2 , pos);
         }
 
@@ -93,13 +93,14 @@ public:
 
     vector<int> countSmaller(vector<int>& nums) {
         vector<int> cond(nums);
+        vector<int> res(nums.size(), 0);
+        if(!nums.size()) return res;
         sort(cond.begin(), cond.end());
         for(int & i : nums){
             i = lower_bound(cond.begin(), cond.end(), i) - cond.begin();
         }
         buildTree(nums.size());
 
-        vector<int> res(nums.size(), 0);
         for (int i = nums.size() - 1; i >= 0; --i) {
             if(nums[i] == 0)
                 res[i] = 0;
