@@ -63,5 +63,9 @@ void print_tree(TreeNode * node, int tab = 0){
     print_tree(node->left, tab);
     print_tree(node->right, tab);
 }
-
+struct UndirectedGraphNode {
+  int label;
+  std::vector<UndirectedGraphNode *> neighbors;
+  UndirectedGraphNode(int x) : label(x) {};
+};
 #endif // FO_H
