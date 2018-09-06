@@ -32,6 +32,8 @@ using namespace std;
  * 6. 节点含有三个状态
  *
  * 1. 直接创建从　pointer 到 pointer 的映射
+ * 2. 节点只有两个状态: visited or not
+ *
  */
 
 
@@ -40,9 +42,46 @@ public:
     // bfs
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
         if(node == nullptr) return nullptr; 
+        map<UndirectedGraphNode *, UndirectedGraphNode *> m;
 
+        // 所有的指针都是original graph
+        queue<UndirectedGraphNode *> s;
+        set<UndirectedGraphNode *> visited;
 
-        return start;
+        s.push(node);
+        visited.insert(node); // 入stack 必定被标记　防止被重复添加到stack 中间
+
+        while(!s.empty()){
+            int len = s.size();
+            for (int i = 0; i < len; i++) {
+                UndirectedGraphNode * un = s.front(); s.pop();
+
+                // pop是创建对应的graph
+                m[un] = new UndirectedGraphNode(un->label);
+
+                // 进入到收割区
+                for(auto nei : un -> neighbors){
+                    auto f = visited.find(nei);
+                    if(f == visited.end()){
+                        s.push(nei);
+                        visited.insert(nei);
+                    }
+                }
+
+            }
+        }
+
+        //　添加vector
+        for(auto i = m.begin(); i != m.end(); i ++){
+            UndirectedGraphNode * a = i->first;
+            UndirectedGraphNode * b = i->second;
+
+            for(auto nei : a->neighbors){
+                b->neighbors.push_back(m[nei]);
+            }
+        }
+
+        return m[node];
     }
 };
 

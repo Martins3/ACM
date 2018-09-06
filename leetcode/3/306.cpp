@@ -55,14 +55,63 @@ public:
     }
 
 
-    // backtrace
+    // 前导0的处理
+    // 一个数值一旦确定前面的数值，后面只是简单的测试
     bool isAdditiveNumber(string num) {
-        if(num.size() < 3) return false;
+        int len = num.size();
+        if(len < 3) return false;
+        
+        deque<string> q;
 
+        for(size_t l = 0; l < len - 2; l ++){
+            // 检查leading zero
+            if(l >= 1 && num[0] == '0') return false;
+
+            for (size_t  r = l + 1; r < len - 1; r++) {
+                // [0, l] [l+1, r] 
+                
+                // 检查leading zero
+                if(r - (l + 1) >= 1 && num[l + 1] == '0') break; 
+
+                q.clear();
+                q.push_back(num.substr(0, l + 1));
+                q.push_back(num.substr(l + 1, r - l));
+
+                // cout << q.front() << endl;
+                // cout << q.back() << endl;
+                // cout << "--------" << endl;
+
+
+                // 确定了计算两个数值，之后就是简单的核对
+                int start = r + 1;
+                while(true){
+
+                    string res = sum(q.front(), q.back());
+                    // cout << "res : " << res << endl;
+                    size_t res_size = res.size();
+                    if(res_size + start > num.size()) break; // 长度超长，直接放弃
+                    
+                    string ans = num.substr(start, res_size);
+
+                    if(ans == res){
+                        // printf("%d %zu %d ", start, res_size, len);
+                        if(start + res_size == len) return true;
+
+                        q.pop_front();
+                        q.push_back(ans);
+                        start += res_size;
+                    }else{
+                        break; // 不相等，爆炸
+                    }
+                }
+            }
+        }
+        return false;
     }
 };
 
 int main(){
-    
+    Solution s;
+    cout << s.isAdditiveNumber("112358");
     return 0;
 }

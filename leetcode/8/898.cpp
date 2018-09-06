@@ -45,6 +45,10 @@ public:
                 res.insert(dp[j]);
             }
         }
+
+        // for(int a : res){
+            // cout << a << endl;
+        // }
         return res.size();
     }
 
@@ -52,6 +56,7 @@ public:
     set<int> res_set;
 
     void handle(vector<int> & A, int l, int r){
+        // printf("%d %d\n", l, r);
         if(l == r){
             res_set.insert(A[l]);
             return;
@@ -61,16 +66,16 @@ public:
         
         handle(A, l, mid);
         handle(A, mid + 1, r);
-
         
         set<int> l_res;
         set<int> r_res;
         int res;
 
 
-        res = A[l];
+        // fuck 方向反了
+        res = A[mid];
         l_res.insert(res);
-        for (int i = l; i <= mid; i++) {
+        for (int i = mid; i >= l; i--) {
             if((A[i] | res) != res){
                 res = A[i] | res;
                 l_res.insert(res);
@@ -95,6 +100,9 @@ public:
 
     int subarrayBitwiseORs(vector<int>& A) {
         handle(A, 0, A.size() - 1);
+        // for(int a : res_set){
+            // cout << a << endl;
+        // }
         return res_set.size();
     }
 };
@@ -112,12 +120,12 @@ int main(){
 
     Solution s;
     // A.clear();
-    // A.push_back(1);
-    // A.push_back(1);
+    // A.push_back(13);
+    // A.push_back(4);
     // A.push_back(2);
 
     cout << s.subarrayBitwiseORs(A) << endl;
-    // cout << s.dp(A);
+    cout << s.dp(A);
 
     return 0;
 }

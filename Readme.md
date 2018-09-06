@@ -10,6 +10,8 @@
 2. https://leetcode.com/problems/palindrome-pairs/description/
 3. https://leetcode.com/problems/self-crossing/description/
 4. 397
+5. 456 并不知道如何使用stack 解决
+6. 
 
 
 # 错误总结
@@ -21,3 +23,6 @@
 5. 504 注意到事情没有log, 导致0 没有分析到
 6. 202 逻辑没有分析完全
 7. 845 分析错误，应该使用two points 来处理才可以
+8. 306
+    1. 递归函数　没有处理完成所有的情况
+    2. 题目意思理解错误
