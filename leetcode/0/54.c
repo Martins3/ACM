@@ -10,54 +10,44 @@
  *
  */
 
-
-void handle(int * loc_ptr, int * res, int ** matrix, int x, int y, int matrixRowSize, int matrixColSize) {
-    if(matrixRowSize <= 0 || matrixColSize <= 0) return;
-    int loc = *loc_ptr;
-
-    // 上
-    for (int i = y; i < matrixColSize + y; ++i)
-        res[loc++] = matrix[x][i];
-    x ++;
-    matrixRowSize --;
-
-    // 右
-    for (int i = x; i < x + matrixRowSize ; ++i)
-        res[loc++] = matrix[i][y + matrixColSize - 1];
-    matrixColSize --;
-
-    // 下
-    for (int i = y + matrixColSize - 1; i >= y ; --i) {
-        res[loc++] = matrix[x + matrixRowSize - 1][i];
-    }
-    matrixRowSize --;
-
-    // 左
-    for (int i = x + matrixRowSize - 1; i >= x; --i)
-        res[loc++] = matrix[i][y];
-    matrixColSize --;
-    y ++;
-
-    *loc_ptr = loc;
-
-    handle(loc_ptr, res, matrix, x, y, matrixRowSize, matrixColSize);
-}
-
 int* spiralOrder(int ** matrix, int matrixRowSize, int matrixColSize) {
     int * res = (int *)(malloc)(sizeof(int) * matrixRowSize * matrixColSize);
 
     int loc = 0;
-    handle(&loc, res, matrix, 0, 0, matrixRowSize, matrixColSize);
+    int x = 0;
+    int y = 0;
+    while(matrixRowSize > 0 && matrixColSize > 0){
+        // 上
+        for (int i = y; i < matrixColSize + y; ++i)
+            res[loc++] = matrix[x][i];
+        x ++;
+        matrixRowSize --;
+
+        // 右
+        for (int i = x; i < x + matrixRowSize ; ++i)
+            res[loc++] = matrix[i][y + matrixColSize - 1];
+        matrixColSize --;
+
+        // 下
+        for (int i = y + matrixColSize - 1; i >= y ; --i) {
+            res[loc++] = matrix[x + matrixRowSize - 1][i];
+        }
+        matrixRowSize --;
+
+        // 左
+        for (int i = x + matrixRowSize - 1; i >= x; --i)
+            res[loc++] = matrix[i][y];
+        matrixColSize --;
+        y ++;
+    }
     return res;
 }
 
 
 
 
-void test(){
+void test(int row, int col){
     int m = 1;
-    int row = 1;
-    int col = 10;
     int ** matrix =(int **)malloc(sizeof(int *) * row);
     for (int i = 0; i < row; ++i) {
         matrix[i] = (int *)malloc(sizeof(int) * col);
@@ -76,9 +66,13 @@ void test(){
     for (int i = 0; i < row * col; ++i) {
         printf("%d ", res[i]);
     }
+
+    free(res);
 }
 
 int main(){
-    test();
+    test(10, 1);
+    test(4, 3);
+    test(5, 2);
     return 0;
 }
