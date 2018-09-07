@@ -22,22 +22,26 @@ int* spiralOrder(int ** matrix, int matrixRowSize, int matrixColSize) {
             res[loc++] = matrix[x][i];
         x ++;
         matrixRowSize --;
+        if(matrixRowSize) break;
 
         // 右
         for (int i = x; i < x + matrixRowSize ; ++i)
             res[loc++] = matrix[i][y + matrixColSize - 1];
         matrixColSize --;
+        if(matrixColSize) break;
 
         // 下
         for (int i = y + matrixColSize - 1; i >= y ; --i) {
             res[loc++] = matrix[x + matrixRowSize - 1][i];
         }
         matrixRowSize --;
+        if(matrixRowSize) break;
 
         // 左
         for (int i = x + matrixRowSize - 1; i >= x; --i)
             res[loc++] = matrix[i][y];
         matrixColSize --;
+        if(matrixColSize) break;
         y ++;
     }
     return res;
