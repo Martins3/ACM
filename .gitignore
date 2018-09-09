@@ -1,3 +1,6 @@
+## 拒绝跟踪测试样本
+*.txt
+
 ## C 语言的
 # Prerequisites
 *.d
