@@ -23,19 +23,33 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 简单的递归查找
- */
-
 class Solution {
 public:
+    // 两者至少含有一位不同的
+    // 将该位不同划分两者
+    void FindNumsAppearOnce(vector<int> data,int* num1,int *num2) {
+        int s = 0;
+        for(auto i : data){
+            s = s ^ i;
+        }
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+        int i = 0;
+        while(!(s & (1 << i))) i ++;
+        int t = 1 << i;
+
+        *num1 = 0;
+        *num2 = 0;
+        for(auto i : data){
+            if(t & i)
+                *num1 = *num1 ^ i;
+            else
+                *num2 = *num2 ^ i;
+        }
     }
+
 };
+
 int main(){
-    Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    
     return 0;
 }

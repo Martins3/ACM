@@ -1,4 +1,3 @@
-#include "../info.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -16,24 +15,17 @@
 #include <iterator>
 #include <string>
 #include <cassert>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
-#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/OnlineJudge/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/OnlineJudge/output.txt", "w", stdout);
 
-/**
- *  使用merge sort的策略
- *  2 * ugly[0]  2 * ugly[1]
- *
- *  前面的ugly数值不够使用, 如何处理 ?
- *  不可能的事情，事先注入数值４，每次消耗都会添加
- *
- *  含有一个小问题:　可能会出现相同的数值
- *
- */
+#define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
+#define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
+
 class Solution {
 public:
-    int nthUglyNumber(int n) {
+    int GetUglyNumber_Solution(int n) {
         vector<int> a(n + 1);
         a[1] = 1;
 
@@ -82,13 +74,8 @@ public:
             M = a[i];
         }
 
-        print_v(a);
+     
         return a[n];
     }
 };
 
-int main(){
-    Solution s;
-    cout << s.nthUglyNumber(10);
-    return 0;
-}

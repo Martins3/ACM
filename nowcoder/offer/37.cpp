@@ -22,20 +22,24 @@ using namespace std;
 
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
-
-/**
- * 简单的递归查找
- */
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};
 
 class Solution {
 public:
-
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+    int TreeDepth(TreeNode* pRoot){
+        if(pRoot == 0) return 0;
+        return max(TreeDepth(pRoot->left), TreeDepth(pRoot->right)) + 1;
     }
 };
+
 int main(){
-    Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    
     return 0;
 }

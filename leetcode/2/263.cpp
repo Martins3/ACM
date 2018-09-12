@@ -23,19 +23,23 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 简单的递归查找
- */
-
 class Solution {
 public:
+    bool isUgly(int num) {
+        if(num == 0) return false;
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+        while(num != 1){
+            if(!(num % 2)){ num = num / 2; continue;}
+            if(!(num % 3)){ num = num / 3; continue;}
+            if(!(num % 5)){ num = num / 5; continue;}
+            return false;
+        }
+
+        return true;
     }
 };
+
 int main(){
-    Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    
     return 0;
 }

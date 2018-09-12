@@ -23,19 +23,33 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 简单的递归查找
- */
-
 class Solution {
 public:
+    string ReverseSentence(string str) {
+        int i = str.size() - 1;
+        int j = str.size() - 1;
+        string res;
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+
+        while(j >= 0){
+            if(str[j] != ' '){
+                while(str[j] != ' ' && j >= 0) j --;
+            }else{
+                while(str[j] == ' ' && j >= 0) j --;
+            }
+            j ++;
+            // printf("%d %d\n",j , i );
+            res += str.substr(j, i - j + 1);
+
+            i = --j;
+        }
+
+        return res;
     }
 };
 int main(){
     Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    cout << s.ReverseSentence("I   am a student.");
+
     return 0;
 }

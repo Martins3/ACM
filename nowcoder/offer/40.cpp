@@ -1,3 +1,4 @@
+#include "../../leetcode/info.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -23,19 +24,27 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 简单的递归查找
- */
+// 应该使用two pointer算法
+// 两端向中间滑动的
 
 class Solution {
 public:
+    vector<int> FindNumbersWithSum(vector<int> array,int sum) {
+        int l;
+        int r;
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
     }
 };
+
 int main(){
+    REOPEN_READ
+    vector<int> vec;
+    int d;
+    while(scanf("%d", &d) == 1){
+        vec.push_back(d);
+    }
     Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    print_v(s.FindNumbersWithSum(vec, 8));
+    
     return 0;
 }

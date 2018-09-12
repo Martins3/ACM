@@ -23,19 +23,29 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 简单的递归查找
- */
-
 class Solution {
 public:
+    
+    string PrintMinNumber(vector<int> numbers) {
+        std::vector<string> A;
+        for(auto s : numbers){
+            A.push_back(to_string(s));
+        }
+        sort(A.begin(), A.end());
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+
+        string res;
+        for(auto s :A){
+            res+= s;
+        }
+        return res;
     }
-};
+};    
+
 int main(){
-    Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    string a = "123";
+    string b = "1234";
+    cout << (a > b) << endl;
+    
     return 0;
 }

@@ -23,19 +23,30 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+        val(x), left(NULL), right(NULL) {
+    }
+};
+
 /**
- * 简单的递归查找
+ * 是否含有更加高效的序列化技术
  */
 
 class Solution {
 public:
+    char* Serialize(TreeNode *root) {    
+    }
 
-    int NumberOf1Between1AndN_Solution(int n) {
-        return 0;
+    TreeNode* Deserialize(char *str) {
+
     }
 };
+
 int main(){
-    Solution s;
-    cout << s.NumberOf1Between1AndN_Solution(13);
+    
     return 0;
 }
