@@ -24,15 +24,49 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-// 应该使用two pointer算法
-// 两端向中间滑动的
-
+/**
+ * 应该使用two pointer算法
+ * 　由于　正数　负数的分布，不知道最佳结果在哪里
+ *
+ * 但是使用2 Sum 来计算
+ */
 class Solution {
 public:
     vector<int> FindNumbersWithSum(vector<int> array,int sum) {
-        int l;
-        int r;
+        int l = 0;
+        int r = array.size() - 1;
+        vector<int> res;
 
+        int mul;
+        bool fuck = true;
+
+        while(l < r){
+            while(array[l]  + array[r] > sum){
+                r --;
+                if(r == l) break; 
+            }
+            
+            if(array[l] + array[r] == sum){
+                if(fuck){
+                    mul = array[l] * array[r];
+                        res = vector<int>{array[l], array[r]};
+                    fuck = false;
+                }else{
+                    if(mul > array[l] * array[r]){
+                        res = vector<int>{array[l], array[r]};
+                    }
+                }
+
+                r--;
+                if(r == l) break;
+            }
+
+            if(array[l] + array[r] < sum){
+                l ++;
+                if(l == r) break;
+            }
+        }
+        return res;
     }
 };
 
@@ -44,7 +78,7 @@ int main(){
         vec.push_back(d);
     }
     Solution s;
-    print_v(s.FindNumbersWithSum(vec, 8));
+    print_v(s.FindNumbersWithSum(vec, 15));
     
     return 0;
 }

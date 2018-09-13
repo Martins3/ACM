@@ -41,19 +41,19 @@ public:
             pHead2  = pHead2->next;
         }else if(pHead2 == NULL){
             h = pHead1;
-            pHead1  = pHead1->next;
+            pHead1 = pHead1->next;
         }else{
-            if(pHead1->val > pHead2->val){
+            if(pHead1->val < pHead2->val){
                 h = pHead1;
                 pHead1  = pHead1->next;
             }else{
-                h = pHead1;
-                pHead1  = pHead1->next;
+                h = pHead2;
+                pHead2  = pHead2->next;
             }
         }
         cur = h;
 
-        while(pHead1 != NULL && pHead2 != NULL){
+        while(pHead1 != NULL || pHead2 != NULL){
             if(pHead1 == NULL){
                 cur->next = pHead2;
                 pHead2  = pHead2->next;
@@ -61,7 +61,7 @@ public:
                 cur->next = pHead1;
                 pHead1  = pHead1->next;
             }else{
-                if(pHead1->val > pHead2->val){
+                if(pHead1->val < pHead2->val){
                     cur->next = pHead1;
                     pHead1  = pHead1->next;
                 }else{
@@ -76,13 +76,22 @@ public:
 };
 
 int main(){
-    ListNode * a =  new ListNode(1);a ->next = b;
-    ListNode * b =  new ListNode(1);
-    ListNode * c =  new ListNode(1);
 
-    ListNode * e =  new ListNode(1);
-    ListNode * f =  new ListNode(1);
-    ListNode * g =  new ListNode(1);
+    ListNode * c =  new ListNode(3);
+    ListNode * b =  new ListNode(2);b->next = c;
+    ListNode * a =  new ListNode(1);a ->next = b;
+
+    ListNode * g =  new ListNode(6);
+    ListNode * f =  new ListNode(5); f->next = g;
+    ListNode * e =  new ListNode(4); e->next = f;
+
+    Solution s;
+    ListNode * cur = s.Merge(a, e);
+    while(cur!= NULL){
+        printf("%d\n",cur->val);
+        cur = cur->next;
+    }
+
     
     return 0;
 }

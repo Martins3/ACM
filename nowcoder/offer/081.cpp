@@ -15,33 +15,35 @@
 #include <iterator>
 #include <string>
 #include <cassert>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
+// 3 4
 class Solution {
 public:
-    int rectCover(int number) {
+    int jumpFloorII(int number) {
         if(number == 0) return 0;
-        // 横竖
-        vector<int> H(number + 1, 0);
-        vector<int> S(number + 1, 0);
-
-        H[1] = 1;
-        S[0] = 1;
+        vector<int> v(number + 1, 0);
+        v[1] = 1;
+        v[0] = 1;
 
         for (int i = 2; i <= number; i++) {
-            H[i] = H[i - 1] + S[i - 1];
-            S[i] = S[i - 2] + H[i - 2]; 
+            for (int j = 0; j < i; j++) {
+                v[i] += v[j];
+            }
         }
 
-        return H[number] + S[number];
+        return v[number];
     }
 };
 
-
 int main(){
+    Solution s;
+    cout << s.jumpFloorII(3);
     return 0;
 }

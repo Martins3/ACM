@@ -15,33 +15,36 @@
 #include <iterator>
 #include <string>
 #include <cassert>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
+/**
+ * 首先结束的添加
+ */
+struct Interval {
+  int start;
+  int end;
+  Interval() : start(0), end(0) {}
+  Interval(int s, int e) : start(s), end(e) {}
+};
+
+int Cmp(const void * a, const void * b){
+    struct Interval * A = (struct Interval *)a;
+}
+
 class Solution {
 public:
-    int rectCover(int number) {
-        if(number == 0) return 0;
-        // 横竖
-        vector<int> H(number + 1, 0);
-        vector<int> S(number + 1, 0);
-
-        H[1] = 1;
-        S[0] = 1;
-
-        for (int i = 2; i <= number; i++) {
-            H[i] = H[i - 1] + S[i - 1];
-            S[i] = S[i - 2] + H[i - 2]; 
-        }
-
-        return H[number] + S[number];
+    int eraseOverlapIntervals(vector<Interval>& intervals) {
+        
     }
 };
 
-
 int main(){
+    
     return 0;
 }

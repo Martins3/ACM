@@ -36,6 +36,16 @@ using namespace std;
  * if it's smaller than the previous one until
  * k digits are already removed.
  *
+ * 本来采用的算法是:
+ *  1. 指定区间的最小值的第一个找出来
+ *  2. 当k 使用完了的时候结束
+ *  3. 当确定了第一个数值，那么就是转化为一个类似的问题
+ * 
+ * 使用stack并不是很容易想到，但是没有必要使用RMQ
+ *
+ * 换一种思路:
+ * 1.
+ *
  */
 class Solution {
 public:

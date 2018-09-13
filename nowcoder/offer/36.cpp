@@ -32,10 +32,10 @@ public:
 
         while(l < r){
             mid = l + (r - l) / 2;
-            if(mid < k){
-                l = mid + 1;
-            }else{
+            if(vec[mid] >= k){
                 r = mid;
+            }else{
+                l = mid + 1;
             }
         }
 
@@ -49,20 +49,36 @@ public:
 
         while(l < r){
             mid = l + (r - l) / 2;
-            if(k < mid){
-                l = mid + 1;
-            }else{
+            if(vec[mid] > k){
                 r = mid;
+            }else{
+                l = mid + 1;
             }
         }
         return l;
     }
-    
+
     int GetNumberOfK(vector<int> data ,int k) {
+        int a = low(data, k);
+        int b = up(data, k);
+        printf("%d %d\n",a, b);
+        if(a == data.size()) return 0;
+
+        return b - a;
     }
 };
 
 int main(){
+    REOPEN_READ
+    vector<int> vec;
+    int d;
+    while(scanf("%d", &d) == 1){
+        vec.push_back(d);
+    }
+    Solution s;
+    cout << s.GetNumberOfK(vec, 3);
+
+    
     
     return 0;
 }

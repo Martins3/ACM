@@ -22,27 +22,41 @@ using namespace std;
 
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
-
 struct TreeNode {
     int val;
     struct TreeNode *left;
     struct TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL){}
+    TreeNode(int x) :
+        val(x), left(NULL), right(NULL) {
+    }
 };
-
-/**
- * 需要借助大小关系
- * 1. 
- */
 
 class Solution {
 public:
-    char* Serialize(TreeNode *root) {    
-
+    int getSize(TreeNode * s){
+        if(s == NULL) return 0;
+        return getSize(s->left) + getSize(s->right) + 1;
     }
 
-    TreeNode* Deserialize(char *str) {
-        
+    TreeNode * kth(TreeNode * node, int k){
+        int l = getSize(node->left);
+        if(l + 1 == k) return node;
+
+        if(k <= l){
+            return kth(node->left, k);
+        }
+
+        return kth(node->right, k - l - 1);
+    }
+
+    TreeNode* KthNode(TreeNode* pRoot, int k){
+        if(k <= 0) return NULL;
+        if(pRoot == NULL) return NULL;
+
+        int len = getSize(pRoot);
+        if(k > len) return NULL;
+
+        return kth(pRoot, k);
     }
 };
 

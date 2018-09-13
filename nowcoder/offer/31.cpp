@@ -23,6 +23,10 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
+/**
+ * 1. 使用C风格处理
+ * 2. 含有部分相同的，那么查询多出来的部分是否最小，对于整个"组"进行排序
+ */
 class Solution {
 public:
     
