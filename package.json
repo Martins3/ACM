@@ -1,0 +1,10 @@
+{
+  "name": "ACM",
+  "scripts": {
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
+  },
+  "devDependencies": {
+    "docz": "latest"
+  }
+}
