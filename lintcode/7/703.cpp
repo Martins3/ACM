@@ -37,8 +37,6 @@ public:
      * @param req: the direction each time
      * @return: the final folded array 
      */
-
-
     vector<int> folding(vector<int> &nums, vector<int> &req) {
         // write your code here
         // vector<int> new_nums =  nums;

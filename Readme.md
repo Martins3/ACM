@@ -29,6 +29,9 @@
 9. 494
     1. 当元素的个数只有一个的时候，没有处理正数和负数的情况
     2. 输出过量
+10. 703
+    1. 对于go 的interface的理解含有问题
+    2. You may assume that nums' length ≥ k-1 and k ≥ 1.
 
 ## leetcode 尚未尝试的
 1. https://leetcode.com/problems/task-scheduler/description/ 
