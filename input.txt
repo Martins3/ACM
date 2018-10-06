@@ -1,4 +1,7 @@
-Meep Meep!
-I tot I taw a putty tat.
-I did! I did! I did taw a putty tat.
-Shsssssssssh ... I am hunting wabbits. Heh Heh Heh Heh ...
+100
+3
+25 50 75
+10
+4
+4 5 7 8
+0
