@@ -5,6 +5,7 @@
 #include<vector>
 #include<iostream>
 #include<string>
+#include<assert.h>
 
 struct TreeNode {
     int val;
@@ -26,8 +27,9 @@ void print_v(std::vector<std::string> v){
 }
 
 
+
 std::vector<TreeNode *> make_tree(std::vector<int> a){
-    TreeNode * root = NULL;
+    assert(0); // this is a bug in this function
     std::vector<TreeNode *> trees(a.size() + 1, NULL);
     for (size_t i = 0; i < a.size(); ++i) {
         TreeNode * this_node;
@@ -37,9 +39,7 @@ std::vector<TreeNode *> make_tree(std::vector<int> a){
             this_node = new TreeNode(a[i]);
         }
         int index = i + 1;
-        if(index == 1){
-            root = this_node;
-        }else{
+
             int x = index / 2;
             int y = index % 2;
 
@@ -47,7 +47,6 @@ std::vector<TreeNode *> make_tree(std::vector<int> a){
                 trees[x]->right = this_node;
             else
                 trees[x]->left = this_node;
-        }
         trees[index] = this_node;
     }
     return trees;

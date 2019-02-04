@@ -63,9 +63,9 @@ public:
 };
 
 int main(){
-
     REOPEN_READ
     vector<int> vec;
+    
     int d;
     while(scanf("%d", &d) == 1){
         vec.push_back(d);

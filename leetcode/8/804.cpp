@@ -40,6 +40,5 @@ public:
 int main(){
 //    REOPEN_READ
 //   REOPEN_WRITE
-
     return 0;
 }
