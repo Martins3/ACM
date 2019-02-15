@@ -20,6 +20,7 @@ using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/output.txt", "w", stdout);
 
+// kP94QU4xSELueAx
 class Solution {
 public:
     /**
