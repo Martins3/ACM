@@ -65,10 +65,3 @@ impl Solution {
         }
     }
 }
-pub struct Solution {}
-
-fn main() {
-    let me = vec![4, 5, 6, 7, 0, 1, 2];
-    let x = Solution::search(me, 0);
-    println!("{}", x);
-}
