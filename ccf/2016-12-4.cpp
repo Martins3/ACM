@@ -15,7 +15,7 @@
 #include <iterator>
 #include <string>
 #include <cassert>
-
+// qwe[^8rD**af_ewRs#Er
 using namespace std;
 #define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/output.txt", "w", stdout);

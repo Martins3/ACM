@@ -1,74 +1,33 @@
-impl Solution {
-    fn binary_search(nums: &Vec<i32>, target: i32, left: usize, right: usize) -> i32 {
-        let mut l = left;
-        let mut r = right;
-        while l < r {
-            let m = (l + r) / 2;
-            if nums[m] >= target {
-                r = m
-            } else {
-                l = m + 1
-            }
-        }
+// A type `Borrowed` which houses a reference to an
+// `i32`. The reference to `i32` must outlive `Borrowed`.
+#[derive(Debug)]
+struct Borrowed<'a>(&'a i32);
 
-        if l == right || nums[l] != target {
-            -1
-        } else {
-            l as i32
-        }
-    }
-
-    fn find_min_help(nums: &Vec<i32>) -> usize {
-        // mountain with only one number ?
-        let mut l = 0;
-        let mut r = nums.len() - 1;
-
-        while l + 1 < r {
-            let m = (l + r) / 2;
-            if nums[m] >= nums[l] {
-                if nums[m + 1] > nums[l] {
-                    l = m + 1;
-                } else {
-                    return m + 1;
-                }
-            } else {
-                r = m;
-            }
-        }
-        r
-    }
-
-    pub fn search(nums: Vec<i32>, target: i32) -> i32 {
-        // mountain with only one number ?
-        if nums.len() == 0 as usize {
-            -1
-        } else if nums.len() == 1 as usize {
-            if nums[0] == target {
-                0
-            } else {
-                -1
-            }
-        } else if nums[0] < nums[nums.len() - 1 as usize] {
-            Self::binary_search(&nums, target, 0, nums.len())
-        } else {
-            let l = Self::find_min_help(&nums);
-            let a = Self::binary_search(&nums, target, 0, l);
-            let b = Self::binary_search(&nums, target, l, nums.len());
-
-            if a != -1 {
-                a
-            } else if b != -1 {
-                b
-            } else {
-                -1
-            }
-        }
-    }
+// Similarly, both references here must outlive this structure.
+#[derive(Debug)]
+struct NamedBorrowed<'a> {
+    x: &'a i32,
+    y: &'a i32,
 }
-pub struct Solution {}
+
+// An enum which is either an `i32` or a reference to one.
+#[derive(Debug)]
+enum Either<'a> {
+    Num(i32),
+    Ref(&'a i32),
+}
 
 fn main() {
-    let me = vec![4, 5, 6, 7, 0, 1, 2];
-    let x = Solution::search(me, 0);
-    println!("{}", x);
+    let x = 18;
+    let y = 15;
+
+    let single = Borrowed(&x);
+    let double = NamedBorrowed { x: &x, y: &y };
+    let reference = Either::Ref(&x);
+    let number    = Either::Num(y);
+
+    println!("x is borrowed in {:?}", single);
+    println!("x and y are borrowed in {:?}", double);
+    println!("x is borrowed in {:?}", reference);
+    println!("y is *not* borrowed in {:?}", number);
 }
