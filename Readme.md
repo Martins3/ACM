@@ -38,18 +38,6 @@
 2. https://leetcode.com/problems/largest-rectangle-in-histogram
 
 
-## 切换手机号需要处理的网站
-1. Google
-2. Facebook
-3. twitter
-4. steam
-5. 知乎
-6. 豆瓣
-7. 简书
-8. 百度
-9. QQ
-10. 支付宝
-11. 京东
-12. 小米
-13. 小米商城 美团外卖 天猫/淘宝 京东的收获地址电话
-14. wps文档
+## 总结
+945 : 积分
+
