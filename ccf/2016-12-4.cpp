@@ -24,6 +24,8 @@ using namespace std;
  * dp 表示范围从的i 到 j （inclusive） 的区间构建一棵树 的 长度
  * len == 0 
  * 对于n == 1的时候单独处理
+ * 12.27 农历的
+ * 1998.1.25 阳历
  * 
  */
 #define maxn (1000 + 10)
