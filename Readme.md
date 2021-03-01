@@ -11,7 +11,6 @@
 3. https://leetcode.com/problems/self-crossing/description/
 4. 397
 5. 456 并不知道如何使用stack 解决
-6. 
 
 
 # leetcode 错误总结
@@ -33,11 +32,19 @@
     1. 对于go 的interface的理解含有问题
     2. You may assume that nums' length ≥ k-1 and k ≥ 1.
 
+
+| Num | Title             | Reason                                                                                                                                |
+|-----|-------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| 31  | next permutation  | 从右向左，找到一个数值 i(下标 i_index), 在其右边存在数字 j, j > i, 将两者替换之后，在 i_index 后面的数值**应该排序**                  |
+| :star: 40  | ombination sum ii | 使用 sort unique erase 来清新相同的项目，但是可以在深度搜索的时候限制，限制方法是 : 分析和上一次深度搜索的关系，如果上一次深度搜索的时候没有使用重复的数值，那么这一次也一定是不需要的 |
+
+
+
 ## leetcode 尚未尝试的
 1. https://leetcode.com/problems/task-scheduler/description/ 
 2. https://leetcode.com/problems/largest-rectangle-in-histogram
 
-
 ## 总结
 945 : 积分
+
 
