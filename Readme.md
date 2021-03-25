@@ -11,6 +11,8 @@
 3. https://leetcode.com/problems/self-crossing/description/
 4. 397
 5. 456 并不知道如何使用stack 解决
+1. https://leetcode.com/problems/task-scheduler/description/ 
+2. https://leetcode.com/problems/largest-rectangle-in-histogram
 
 
 # leetcode 错误总结
@@ -39,12 +41,7 @@
 | :star: 40  | ombination sum ii | 使用 sort unique erase 来清新相同的项目，但是可以在深度搜索的时候限制，限制方法是 : 分析和上一次深度搜索的关系，如果上一次深度搜索的时候没有使用重复的数值，那么这一次也一定是不需要的 |
 | 1615| maximal network rank| find_if 使用。对于数据排序之后，数组下标已经不是数据节点了。 |
 | 1371| find-the-longest-substring-containing-vowels-in-even-counts|题目看错了，将包含偶数个看做了包含 2 个，即使在这个思路下，也是简单问题复杂化了, 后面写了好几种错误的接法，实际上，思想是，记录a e i o u 数量组合的 index ，然后做差值|
+| 300| Longest Increasing Subsequence | 可以使用经典的 dp 解法，dp 数组的含义是 dp[i] 描述前 i 的数的最优解，但是实际上存在更好的做法 https://segmentfault.com/a/1190000003819886, dp 数组描述各种长度 increasing subsequent，并且需要保证他们的 tail 是最小的|
 
-## leetcode 尚未尝试的
-1. https://leetcode.com/problems/task-scheduler/description/ 
-2. https://leetcode.com/problems/largest-rectangle-in-histogram
-
-## 总结
-945 : 积分
-
-
+# 动态规划
+当前最佳结果 = max(最优子结构)

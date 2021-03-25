@@ -1,51 +1,71 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cmath>
-#include <stack>
-#include <sstream>
-#include <climits>
-#include <forward_list>
-#include <deque>
-#include <set>
-#include <utility>
-#include <queue>
-#include <map>
-#include <cstring>
+#include "../dbg.hpp"
 #include <algorithm>
-#include <iterator>
-#include <string>
-#include <unordered_set>
-#include <unordered_map>
 #include <cassert>
+#include <climits>
+#include <cmath>
+#include <cstring>
+#include <deque>
+#include <forward_list>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 using namespace std;
-#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/output.txt", "w", stdout);
-
 /**
- * 从 左边 到 最右边 分析， 只有的当前的操作实现了  如果的匹配那么的操作
- * 如果 没有匹配， 采用 三种的方法 插入 删除 替换 ！
- * 
- * 维持一个 指针， 记录的尚且没有匹配的元素的 index , 提供 一个 函数的位置 
- * 提供一个list
- * 提供个数 编辑的时候的总是的提供的额最佳的选项的实行的，
- * 1. 相等的时候不替换
- * 2. 只有和下一个相等的时候才使用的插入
- * 3. 。。。。。
- * 
- * 后面的若干的步骤无法看见，
+ * 1. 如果匹配了，那么就进行下一个分析
+ * 2. 编辑一个string，直到其和第二个 string 相同
+ * 3. dp[i][j] string A [0..i] 和 string B[0..j] 之间的编辑距离
+ *
+ * dp 的构建需要 行 列 交错的进行的
+ *
+ * 还可以求解出来操作的方法 : dp[i][j] 记录自己是靠什么方法求解来的，不同的求解方法可以找到上一个位置。
  */
+
 class Solution {
 public:
-    int minDistance(string word1, string word2) {
-        return 1;
+  int minDistance(string word1, string word2) {
+    vector<vector<int>> dp(word1.size() + 1, vector<int>(word2.size() + 1, -1));
+
+    if (min(word1.size(), word2.size()) == 0) {
+      return max(word1.size(), word2.size());
     }
+
+    for (int i = 0; i <= word1.size(); ++i) {
+      dp[i][0] = i;
+    }
+
+    for (int j = 0; j <= word2.size(); ++j) {
+      dp[0][j] = j;
+    }
+
+    // 下标 i 和 j 在索引 dp 的描述的是长度
+    for (int i = 1; i <= word1.size(); ++i) {
+      for (int j = 1; j <= word2.size(); ++j) {
+        if (word1[i - 1] == word2[j - 1]) { // 如果长度为 
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          dp[i][j] = min(min(dp[i - 1][j - 1], dp[i][j - 1]), dp[i - 1][j]) + 1;
+        }
+      }
+    }
+    dbg(dp);
+
+    return dp[word1.size()][word2.size()];
+  }
 };
 
-int main(){
-    REOPEN_READ
-    //REOPEN_WRITE
-
-    return 0;
+int main() {
+  Solution s;
+  cout << s.minDistance("intention", "execution");
+  return 0;
 }
