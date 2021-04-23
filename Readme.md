@@ -45,3 +45,6 @@
 
 # 动态规划
 当前最佳结果 = max(最优子结构)
+
+# 二分
+https://stackoverflow.com/questions/6443569/implementation-of-c-lower-bound
