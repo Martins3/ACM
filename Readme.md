@@ -1,6 +1,11 @@
 # My ACM Journey
 [poj profile](http://poj.org/userstatus?user_id=huxueshiOne)
 
+
+## 资源
+- http://www.pythontip.com/acm/problemCategory
+
+
 # todo list
 ## POj
 1. http://poj.org/problem?id=3276
