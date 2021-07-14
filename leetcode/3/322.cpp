@@ -4,7 +4,7 @@ using namespace std;
 
 #define REOPEN_READ freopen("/home/maritns3/test/cpp/input.txt", "r", stdin);
 
-class Solution {
+class WrongSolution {
   int summary(vector<int> &v) {
     int res = 0;
     for (int i = 0; i < v.size(); ++i) {
@@ -134,10 +134,39 @@ public:
   }
 };
 
+class Solution {
+public:
+  int coinChange(vector<int> &coins, int amount) {
+    // 不要替换，当前的结果总是之前的结果添加一个硬币的
+
+    vector<int> res{0};
+    for (int i = 1; i <= amount; ++i) {
+      int best = -1;
+      for (int j = 0; j < coins.size(); ++j) {
+        int coin = coins[j];
+        if (i - coin < 0)
+          continue;
+
+        if (res[i - coin] < 0)
+          continue;
+
+        if (best == -1) {
+          best = res[i - coin] + 1;
+        } else {
+          best = min(best, res[i - coin] + 1);
+        }
+      }
+      res.push_back(best);
+    }
+    dbg(res);
+    return res[amount];
+  }
+};
+
 int main(int argc, char *argv[]) {
   Solution s;
-  auto v = vector<int>{1, 2, 5};
-  s.coinChange(v, 11);
+  auto v = vector<int>{3, 7, 5};
+  cout << s.coinChange(v, 4);
 
   return 0;
 }

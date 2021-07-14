@@ -51,7 +51,7 @@ public:
     // 下标 i 和 j 在索引 dp 的描述的是长度
     for (int i = 1; i <= word1.size(); ++i) {
       for (int j = 1; j <= word2.size(); ++j) {
-        if (word1[i - 1] == word2[j - 1]) { // 如果长度为 
+        if (word1[i - 1] == word2[j - 1]) { // 如果正好相等, 那么就无需变化 
           dp[i][j] = dp[i - 1][j - 1];
         } else {
           dp[i][j] = min(min(dp[i - 1][j - 1], dp[i][j - 1]), dp[i - 1][j]) + 1;

@@ -126,3 +126,5 @@ hs_err_pid*
 rust/**
       
 .gdb_history
+
+leetcode/5/518.out
