@@ -41,6 +41,5 @@ public:
 int main() {
   Solution c;
   cout << c.numTrees(3);
-
   return 0;
 }
