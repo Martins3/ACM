@@ -1,50 +1,44 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cmath>
-#include <stack>
-#include <sstream>
-#include <climits>
-#include <deque>
-#include <set>
-#include <utility>
-#include <queue>
-#include <map>
-#include <cstring>
-#include <algorithm>
-#include <iterator>
-#include <string>
-#include <cassert>
-#include <unordered_set>
-#include <unordered_map>
 
+#include <bits/stdc++.h>
 using namespace std;
+#include "../dbg.hpp"
 
-#define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
-
-/**
- * 首先结束的添加
- */
-struct Interval {
-  int start;
-  int end;
-  Interval() : start(0), end(0) {}
-  Interval(int s, int e) : start(s), end(e) {}
-};
-
-int Cmp(const void * a, const void * b){
-    struct Interval * A = (struct Interval *)a;
-}
+#define REOPEN_READ freopen("/home/maritns3/test/cpp/input.txt", "r", stdin);
 
 class Solution {
 public:
-    int eraseOverlapIntervals(vector<Interval>& intervals) {
-        
+  // 之前的最优化问题就是求解最多可以放下多少啊
+
+  int eraseOverlapIntervals(vector<vector<int>> &intervals) {
+    // 尽早结束
+    auto cmp = [](const vector<int> &a, const vector<int> &b) {
+      return a[1] < b[1];
+    };
+
+    sort(intervals.begin(), intervals.end(), cmp);
+    int end = 0x3f3f3f3f;
+    for (int i = 0; i < intervals.size(); ++i) {
+      end = min(end, intervals[i][0]);
     }
+    
+    int ok = 0;
+    for (int i = 0; i < intervals.size(); ++i) {
+      if(intervals[i][0] >= end ){
+        end = intervals[i][1];
+        ok ++;
+      }
+    }
+    dbg(intervals);
+    return intervals.size() - ok;
+  }
 };
 
-int main(){
-    
-    return 0;
+int main(int argc, char *argv[]) {
+  Solution s;
+  vector<vector<int> > a;
+  a.push_back({1,4});
+  a.push_back({1,2});
+  a.push_back({1,3});
+  s.eraseOverlapIntervals(a);
+  return 0;
 }

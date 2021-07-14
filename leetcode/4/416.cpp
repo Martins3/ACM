@@ -1,38 +1,50 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cmath>
-#include <stack>
-#include <sstream>
-#include <climits>
-#include <deque>
-#include <set>
-#include <utility>
-#include <queue>
-#include <map>
-#include <cstring>
-#include <algorithm>
-#include <iterator>
-#include <string>
-#include <cassert>
-
+#include <bits/stdc++.h>
 using namespace std;
+#include "../dbg.hpp"
 
-#define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
-
-/**
- * 将数值左右移动
- *
- */
+#define REOPEN_READ freopen("/home/maritns3/test/cpp/input.txt", "r", stdin);
 class Solution {
 public:
-    bool canPartitionKSubsets(vector<int>& nums, int k) {
-        
+  bool canPartition(vector<int> &nums) {
+    set<int> s;
+    s.insert(0);
+
+    int sum = 0;
+    for (auto x : nums)
+      sum += x;
+
+    if (sum % 2)
+      return false;
+
+    if (sum == 0)
+      return true;
+
+    sum = sum / 2;
+
+    for (auto num : nums) {
+      vector<int> adds;
+      for (int all : s) {
+        auto candidate = all + num;
+        if(candidate == sum){
+          return true;
+        }
+        if(candidate > sum) continue;
+        adds.push_back(candidate);
+      }
+
+      for(auto n : adds){
+        s.insert(n);
+      }
     }
+    // dbg(s);
+    return false;
+  }
 };
 
-int main(){
-    
-    return 0;
+int main(int argc, char *argv[]) { 
+  Solution s;
+  auto v = vector<int>{1,2,3,8};
+  cout << s.canPartition(v);
+
+  return 0; 
 }
