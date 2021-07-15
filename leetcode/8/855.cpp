@@ -55,10 +55,11 @@ public:
   ExamRoom(int n) { N = n; }
 
   int seat() {
-    int res;
     if (segments.empty()) {
-      Segment *s = new Segment(0, N);
-      insert_segment(s);
+      Segment *a = new Segment(-1, 0);
+      Segment *b = new Segment(0, N);
+      insert_segment(a);
+      insert_segment(b);
       debug();
       return 0;
     }
@@ -67,27 +68,22 @@ public:
     int BEGIN = seg->begin;
     int END = seg->end;
 
+    int m;
     if (seg->isLeftSide()) {
-      Segment *new_seg = new Segment(0, END);
-      erase_segment(seg);
-      insert_segment(new_seg);
-      res = 0;
+      m = 0;
     } else if (seg->isRightSide()) {
-      Segment *new_seg = new Segment(BEGIN, N - 1);
-      erase_segment(seg);
-      insert_segment(new_seg);
-      res = N - 1;
+      m = N - 1;
     } else {
-      int m = BEGIN + (END - BEGIN) / 2;
-      Segment *left = new Segment(BEGIN, m);
-      Segment *right = new Segment(m, END);
-      erase_segment(seg);
-      insert_segment(left);
-      insert_segment(right);
-      res = m;
+      m = BEGIN + (END - BEGIN) / 2;
     }
+
+    Segment *left = new Segment(BEGIN, m);
+    Segment *right = new Segment(m, END);
+    erase_segment(seg);
+    insert_segment(left);
+    insert_segment(right);
     debug();
-    return res;
+    return m;
   }
 
   void debug() {
@@ -120,29 +116,22 @@ public:
     if (segments.size() == 2) {
       Segment *seg = *segments.begin();
       erase_segment(seg);
+
+      seg = *segments.begin();
+      erase_segment(seg);
+
       assert(segments.empty() && start.empty() && end.empty());
       debug();
       return;
     }
 
-    if (p == 0) {
-      Segment *seg = start[0];
-      Segment *new_seg = new Segment(-1, seg->end);
-      erase_segment(seg);
-      insert_segment(new_seg);
-    } else if (p == N - 1) {
-      Segment *seg = end[N - 1];
-      Segment *new_seg = new Segment(seg->begin, N);
-      erase_segment(seg);
-      insert_segment(new_seg);
-    } else {
-      Segment *left_seg = end[p];
-      Segment *right_seg = start[p];
-      Segment *new_seg = new Segment(left_seg->begin, right_seg->end);
-      erase_segment(left_seg);
-      erase_segment(right_seg);
-      insert_segment(new_seg);
-    }
+    Segment *left_seg = end[p];
+    Segment *right_seg = start[p];
+    Segment *new_seg = new Segment(left_seg->begin, right_seg->end);
+    erase_segment(left_seg);
+    erase_segment(right_seg);
+    insert_segment(new_seg);
+
     debug();
   }
 };
