@@ -1,57 +1,44 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cmath>
-#include <stack>
-#include <sstream>
-#include <climits>
-#include <forward_list>
-#include <deque>
-#include <set>
-#include <utility>
-#include <queue>
-#include <map>
-#include <cstring>
-#include <algorithm>
-#include <iterator>
-#include <string>
-
+#include <bits/stdc++.h>
+// #include "../dbg.hpp"
 using namespace std;
-#define REOPEN_READ freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/uva/input.txt", "r", stdin);
-#define REOPEN_WRITE freopen("/home/martin/X-Brain/Notes/Clang/OnlineJudge/uva/output.txt", "w", stdout);
-
-/**
- * 小心处理两个边界条件
- * 
- */
-#define lld long long int
-#define maxn 500
-
-int N;
-
-
-
-
-
-
+#define REOPEN_READ freopen("/home/maritns3/test/cpp/input.txt", "r", stdin);
 
 class Solution {
 public:
+  int maxCoins(vector<int> &nums) {
+    int LEN = nums.size() + 2;
+    vector<vector<int>> dp(LEN, vector<int>(LEN));
+    vector<int> points(LEN);
 
+    for (int i = 0; i < LEN - 2; ++i) {
+      points[i + 1] = nums[i];
+    }
+    points[0] = 1;
+    points[LEN - 1] = 1;
+
+    // 初始化 size = 1
+    for (int i = 0; i < LEN; ++i) {
+      int j = i + 1;
+      if (j < LEN) {
+        dp[i][j] = 0;
+      }
+    }
+
+    for (int len = 2; len < LEN; ++len) {
+      for (int i = 0; i < LEN; ++i) {
+        int j = i + len;
+        if (j < LEN) {
+          int max_v = -1;
+          for (int k = i + 1; k < j; ++k) {
+            max_v = max(max_v, points[k] * points[i] * points[j] + dp[i][k] +
+                                   dp[k][j]);
+          }
+          dp[i][j] = max_v;
+        }
+      }
+    }
+    return dp[0][LEN - 1];
+  }
 };
 
-
-int main(){
-    REOPEN_READ
-    // REOPEN_WRITE
-    Solution s;
-    return 0;
-}
-
-/**
- * error log:
- * 1. 对于最优子结构理解错误，只有最大值才可以使用， 最大乘数， 没有办法保证的就是的最大的
- * 整数， 一个数值注销的时候， 必定是和相邻的数值处理的
- * 2. out of time exception
- * 
- */
+int main(int argc, char *argv[]) { return 0; }
