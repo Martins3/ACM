@@ -42,6 +42,36 @@ public:
         return res;        
     }
 };
+
+class Solution2 {
+public:
+  vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL)
+      return res;
+
+    vector<TreeNode *> stk;
+    stk.push_back(root);
+
+    while (!stk.empty()) {
+      TreeNode *n = stk.back();
+      stk.pop_back();
+
+      res.push_back(n->val);
+
+      if (n->left) {
+        stk.push_back(n->left);
+      }
+
+      if (n->right) {
+        stk.push_back(n->right);
+      }
+    }
+
+    reverse(res.begin(), res.end());
+    return res;
+  }
+};
 int main(){
     REOPEN_READ
     REOPEN_WRITE
