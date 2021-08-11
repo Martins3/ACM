@@ -19,6 +19,8 @@
 1. https://leetcode.com/problems/task-scheduler/description/ 
 2. https://leetcode.com/problems/largest-rectangle-in-histogram
 
+- [ ] https://leetcode-cn.com/problems/split-array-into-consecutive-subsequences/
+
 
 # leetcode 错误总结
 1. 840 审题错误， distinct number from 0 to 20
