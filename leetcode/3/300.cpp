@@ -24,10 +24,6 @@ using namespace std;
 #define REOPEN_READ freopen("/home/shen/Core/ACM/input.txt", "r", stdin);
 #define REOPEN_WRITE freopen("/home/shen/Core/ACM/output.txt", "w", stdout);
 
-/**
- * 
- */
-
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
